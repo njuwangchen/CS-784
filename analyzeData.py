@@ -87,7 +87,7 @@ for attribute in sorted_MissingValue[0:10]:
 	for prodID,att_dict in product_dict.iteritems():
 		if attributeName in att_dict:
 			#print str(prodID) +" "+str(attributeName) +" "+str(att_dict[attributeName])
-			l.append(len(str(att_dict[attributeName])))
+			l.append(len(str(att_dict[attributeName]))-5)
 			
 	attribute_value_dict[attributeName]=l
 
