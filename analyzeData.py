@@ -4,6 +4,8 @@ import operator
 import pickle
 import sys
 import csv
+import matplotlib.pyplot as plt
+
 sys.stdout = open('file', 'w')
 
 with open('prodID_dict.pickle', 'rb') as handle:
@@ -97,5 +99,18 @@ for attribute in sorted_MissingValue[0:10]:
 print "\n length"
 for attribute,l in attribute_value_dict.iteritems():
 	print str(attribute)+"\t min:"+str(min(l)) + "\t max:"+ str(max(l)) + "\t mean:"+ str(sum(l)*1.0/len(l))
+
 # histogram and csv
+
+for key in attribute_value_dict:
+	x = attribute_value_dict[key]
+	plt.hist(x, 50, normed=1, facecolor='green', alpha=0.75)
+
+	plt.xlabel('Length')
+	plt.ylabel('Frequency')
+	plt.title(key)
+	#plt.axis([40, 160, 0, 0.03])
+	plt.grid(True)
+
+	plt.show()
 
