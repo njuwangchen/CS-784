@@ -13,8 +13,8 @@ for cellObj in ws.columns[2]:
 
 ####shuffle
 from random import shuffle
-ProductName = []
-BrandName_true = []
+productNames = []
+brandNames_true = []
 index_shuf = range(len(ProductName_sorted))
 r=0.5  # shuffle use the same seed every time
 shuffle(index_shuf,lambda: r)
@@ -22,8 +22,8 @@ shuffle(index_shuf,lambda: r)
 shuffle(index_shuf,lambda: r)
 #print index_shuf
 for i in index_shuf:
-    ProductName.append(ProductName_sorted[i])
-    BrandName_true.append(BrandName_true_sorted[i])
+    productNames.append(ProductName_sorted[i])
+    brandNames_true.append(BrandName_true_sorted[i])
     #print str(i)+","+BrandName_true[-1]+"==== "+ProductName[-1]
 #print len(ProductName)
 #print len(BrandName_true)
@@ -42,3 +42,25 @@ f.close()
 #print len(brand_dict)
 from pprint import pprint
 #pprint(brand_dict)
+
+#### tokenize each product name on word level and see if any token is in the dictionary
+brand_predicted = []
+for productName in productNames:
+    list_words_in_productName = productName.split()
+    #print productName
+    #print list_words_in_productName
+    brandFound = False
+    for word in list_words_in_productName:
+        if word in brand_dict:
+            brand_predicted.append(word)
+            brandFound = True
+            break
+    if(not brandFound):
+        brand_predicted.append("None")
+print brand_predicted
+
+count = 0
+for i in range(0,len(brand_predicted)):
+    if(brand_predicted[i] == brandNames_true[i]):
+        count=count+1
+print count*1.0/350
