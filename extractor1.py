@@ -57,10 +57,15 @@ for productName in productNames:
             break
     if(not brandFound):
         brand_predicted.append("None")
-print brand_predicted
 
 count = 0
 for i in range(0,len(brand_predicted)):
     if(brand_predicted[i] == brandNames_true[i]):
         count=count+1
-print count*1.0/350
+print count
+print brand_predicted
+print brandNames_true
+
+# pay attention to upper and lower case
+# pay attention to brandname with 2 words
+# generate candidate set if multiple matches
