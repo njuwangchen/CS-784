@@ -28,7 +28,7 @@ for i in index_shuf:
 #print len(ProductName)
 #print len(BrandName_true)
 
-##### read the brand dictionary, key is the brand name, value is the frequency
+##### read the brand dictionary, key is the brand name( lower case), value is the frequency
 brand_dict ={}
 #f = open('elec_brand_dic.txt', 'r')
 import codecs
@@ -36,7 +36,8 @@ f = codecs.open('elec_brand_dic.txt', 'r', encoding='utf-8')
 
 for line in f:
         list_line = line.split('\t')
-        brand_dict[list_line[0]]=int(list_line[1])
+        #brand_dict[list_line[0]]=int(list_line[1])
+        brand_dict[list_line[0].lower()]=int(list_line[1])
         #print list_line
 f.close()
 #print len(brand_dict)
@@ -51,7 +52,7 @@ for productName in productNames:
     #print list_words_in_productName
     brandFound = False
     for word in list_words_in_productName:
-        if word in brand_dict:
+        if word.lower() in brand_dict:
             brand_predicted.append(word)
             brandFound = True
             break
@@ -62,10 +63,12 @@ count = 0
 for i in range(0,len(brand_predicted)):
     if(brand_predicted[i] == brandNames_true[i]):
         count=count+1
+    else:
+        print brand_predicted[i]+","+brandNames_true[i]
 print count
-print brand_predicted
-print brandNames_true
+#print brand_predicted
+#print brandNames_true
 
-# pay attention to upper and lower case
+# pay attention to lower case: lower case for dictionary dict
 # pay attention to brandname with 2 words
 # generate candidate set if multiple matches
