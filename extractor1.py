@@ -51,6 +51,14 @@ for productName in productNames:
     #print productName
     #print list_words_in_productName
     brandFound = False
+
+    if(not brandFound):
+        for i in range(len(list_words_in_productName)-2):
+            word_two_token = list_words_in_productName[i]+" "+list_words_in_productName[i+1]+" "+list_words_in_productName[i+2]
+            if word_two_token.lower() in brand_dict:
+                brand_predicted.append(word_two_token)
+                brandFound = True
+                break
     if(not brandFound):
         for i in range(len(list_words_in_productName)-1):
             word_two_token = list_words_in_productName[i]+" "+list_words_in_productName[i+1]
@@ -58,6 +66,7 @@ for productName in productNames:
                 brand_predicted.append(word_two_token)
                 brandFound = True
                 break
+
     if(not brandFound):
         for word in list_words_in_productName:
             if word.lower() in brand_dict:
@@ -76,6 +85,7 @@ for i in range(0,len(brand_predicted)):
     if(brand_predicted[i].lower() == brandNames_true[i].lower()):
         count=count+1
     else:
+        print "======" +productNames[i]
         print brand_predicted[i]+","+brandNames_true[i]
 print count
 #print brand_predicted
