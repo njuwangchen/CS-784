@@ -51,13 +51,25 @@ for productName in productNames:
     #print productName
     #print list_words_in_productName
     brandFound = False
-    for word in list_words_in_productName:
-        if word.lower() in brand_dict:
-            brand_predicted.append(word)
-            brandFound = True
-            break
+    if(not brandFound):
+        for i in range(len(list_words_in_productName)-1):
+            word_two_token = list_words_in_productName[i]+" "+list_words_in_productName[i+1]
+            if word_two_token.lower() in brand_dict:
+                brand_predicted.append(word_two_token)
+                brandFound = True
+                break
+    if(not brandFound):
+        for word in list_words_in_productName:
+            if word.lower() in brand_dict:
+                brand_predicted.append(word)
+                brandFound = True
+                break
+
+
     if(not brandFound):
         brand_predicted.append("None")
+
+
 
 count = 0
 for i in range(0,len(brand_predicted)):
@@ -69,6 +81,5 @@ print count
 #print brand_predicted
 #print brandNames_true
 
-# pay attention to lower case: lower case for dictionary dict
 # pay attention to brandname with 2 words
 # generate candidate set if multiple matches
