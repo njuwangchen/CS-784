@@ -15,13 +15,19 @@ for cellObj in ws.columns[2]:
 from random import shuffle
 productNames = []
 brandNames_true = []
+
+productNames_test = []
+brandNames_true_test = []
 index_shuf = range(len(ProductName_sorted))
 r=0.5  # shuffle use the same seed every time
 shuffle(index_shuf,lambda: r)
 shuffle(index_shuf,lambda: r)
 shuffle(index_shuf,lambda: r)
 #print index_shuf
-for i in index_shuf:
+for i in index_shuf[:120]:
+    productNames_test.append(ProductName_sorted[i])
+    brandNames_true_test.append(BrandName_true_sorted[i])
+for i in index_shuf[120:]:
     productNames.append(ProductName_sorted[i])
     brandNames_true.append(BrandName_true_sorted[i])
     #print str(i)+","+BrandName_true[-1]+"==== "+ProductName[-1]
