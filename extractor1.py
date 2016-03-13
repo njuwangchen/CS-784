@@ -73,7 +73,7 @@ for productName in productNames:
 
 count = 0
 for i in range(0,len(brand_predicted)):
-    if(brand_predicted[i] == brandNames_true[i]):
+    if(brand_predicted[i].lower() == brandNames_true[i].lower()):
         count=count+1
     else:
         print brand_predicted[i]+","+brandNames_true[i]
