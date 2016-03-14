@@ -7,8 +7,6 @@ import xlwt
 def predictAndTest(productNamesSet, trueBrand):
     brand_predicted = []
     for productName in productNamesSet:
-        #list_words_in_productName = productName.split()
-
         list_words_in_productName = re.split("[ ,]+", productName)
 
         brandFound = False
@@ -79,20 +77,12 @@ for cellObj in ws.columns[2]:
         BrandName_true_sorted.append(str(cellObj.value))
 # No brand read as "None"
 
-####shuffle
 productNames = []
 brandNames_true = []
 
 productNames_test = []
 brandNames_true_test = []
-# index_shuf = range(len(ProductName_sorted))
-# r=0.5  # shuffle use the same seed every time
-# shuffle(index_shuf,lambda: r)
-# shuffle(index_shuf,lambda: r)
-# shuffle(index_shuf,lambda: r)
-#print index_shuf
 
-#index_shuf = itertools.permutations(range(len(ProductName_sorted)))
 all_index = range(len(ProductName_sorted))
 random.seed(2)
 index_for_test = random.sample(all_index, 120)
@@ -133,9 +123,7 @@ f = codecs.open('elec_brand_dic.txt', 'r', encoding='utf-8')
 
 for line in f:
         list_line = line.split('\t')
-        #brand_dict[list_line[0]]=int(list_line[1])
         brand_dict[list_line[0].lower()]=int(list_line[1])
-        #print list_line
 f.close()
 
 correctNumOfTrain = predictAndTest(productNames, brandNames_true)
