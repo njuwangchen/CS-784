@@ -67,7 +67,7 @@ def predictAndTest(productNamesSet, trueBrand):
                 count_FP = count_FP+1
     return (count_TP,count_TN,count_FP,count_FN,count_T_Predicted,count_T_Labeled)
 
-wb = load_workbook('Samples_clean1.xlsx')
+wb = load_workbook('Samples_clean.xlsx')
 ws = wb.active
 
 # read the golden data from the excel file
