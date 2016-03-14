@@ -28,7 +28,7 @@ f.close()
 with open('prodID_dict_s2.pickle', 'wb') as handle:
     pickle.dump(product_dict, handle)
 
-sample_idx = [random.randint(0, 10000) for r in range(350)]
+sample_idx = [random.randint(0, 10000) for r in range(100)]
 samples = []
 for r in sample_idx:
     print product_list[r]
@@ -43,7 +43,7 @@ for i in samples:
     sheet.write(row, 1, i[1])
     row=row+1
 
-workbook.save("Samples.xls")
+workbook.save("Samples_100.xls")
 
 
 
