@@ -2,7 +2,7 @@ from openpyxl import load_workbook
 import random
 import codecs
 import re
-import itertools
+import xlwt
 
 def predictAndTest(productNamesSet, trueBrand):
     brand_predicted = []
@@ -98,30 +98,36 @@ random.seed(2)
 index_for_test = random.sample(all_index, 120)
 index_for_train = list(set(all_index) - set(index_for_test))
 
-counter_train_positive = 0
-counter_train_negative = 0
 for i in index_for_test:
     productNames_test.append(ProductName_sorted[i])
     brandNames_true_test.append(BrandName_true_sorted[i])
-    if(ProductName_sorted[i] == 'None'):
-        counter_train_negative = counter_train_negative + 1
-    else:
-        counter_train_positive = counter_train_positive + 1
 
-counter_test_positive = 0
-counter_test_negative = 0
+testWorkbook = xlwt.Workbook()
+testSheet = testWorkbook.add_sheet("test")
+
+row = 0
+for i in range(len(productNames_test)):
+    testSheet.write(row, 0, productNames_test[i])
+    testSheet.write(row, 1, brandNames_true_test[i])
+    row = row+1
+
+testWorkbook.save("testSet.xls")
+
 for i in index_for_train:
     productNames.append(ProductName_sorted[i])
     brandNames_true.append(BrandName_true_sorted[i])
-    if(ProductName_sorted[i] == 'None'):
-        counter_test_negative = counter_test_negative + 1
-    else:
-        counter_test_positive = counter_test_positive + 1
-    #print str(i)+","+BrandName_true[-1]+"==== "+ProductName[-1]
-#print len(ProductName)
-#print len(BrandName_true)
 
-##### read the brand dictionary, key is the brand name( lower case), value is the frequency
+trainWorkbook = xlwt.Workbook()
+trainSheet = trainWorkbook.add_sheet("development")
+
+row = 0
+for i in range(len(productNames)):
+    trainSheet.write(row, 0, productNames[i])
+    trainSheet.write(row, 1, brandNames_true[i])
+    row = row+1
+
+trainWorkbook.save("developmentSet.xls")
+
 brand_dict ={}
 f = codecs.open('elec_brand_dic.txt', 'r', encoding='utf-8')
 
