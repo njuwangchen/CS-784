@@ -3,6 +3,7 @@ from sklearn.metrics import precision_score, recall_score
 from sklearn import svm, linear_model
 from sklearn.naive_bayes import GaussianNB
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
 
 with open('classlabels_train.pickle', 'rb') as handle:
 	classlabels_train = pickle.load(handle)
@@ -31,13 +32,14 @@ print "P; %f" % precision_score(y_true, y_pred_dt)
 print "R; %f" % recall_score(y_true, y_pred_dt)
 
 
-####Random Forest
-nb = GaussianNB()
-print nb.fit(X,Y)
-y_pred_nb = nb.predict(x).tolist()
-print "naive bayes"
-print "P; %f" % precision_score(y_true, y_pred_nb)
-print "R; %f" % recall_score(y_true, y_pred_nb)
+####Random Forest,
+## The number of trees in the forest, n_estimators 
+rf = RandomForestClassifier(n_estimators = 100)
+print rf.fit(X,Y)
+y_pred_rf = rf.predict(x).tolist()
+print "random forest"
+print "P; %f" % precision_score(y_true, y_pred_rf)
+print "R; %f" % recall_score(y_true, y_pred_rf)
 
 
 ####Naive Bayes
