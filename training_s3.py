@@ -2,6 +2,7 @@ import pickle
 from sklearn.metrics import precision_score, recall_score
 from sklearn import svm, linear_model
 from sklearn.naive_bayes import GaussianNB
+from sklearn.tree import DecisionTreeClassifier
 
 with open('classlabels_train.pickle', 'rb') as handle:
 	classlabels_train = pickle.load(handle)
@@ -22,9 +23,21 @@ y_true = classlabels_train[-(10000-k):]
 x = feature_matrix_train[-(10000-k):]
 
 ####Decision Tree
+dt = DecisionTreeClassifier()
+print dt.fit(X,Y)
+y_pred_dt = dt.predict(x).tolist()
+print "Decision Tree"
+print "P; %f" % precision_score(y_true, y_pred_dt)
+print "R; %f" % recall_score(y_true, y_pred_dt)
+
 
 ####Random Forest
-
+nb = GaussianNB()
+print nb.fit(X,Y)
+y_pred_nb = nb.predict(x).tolist()
+print "naive bayes"
+print "P; %f" % precision_score(y_true, y_pred_nb)
+print "R; %f" % recall_score(y_true, y_pred_nb)
 
 
 ####Naive Bayes
