@@ -22,8 +22,8 @@ for line in f:
 	print(i)
 	match_dict[(list_line[1], list_line[3])] = list_line[5].strip()
 	i = i + 1
-	if (i > 10):
-		break
+#	if (i > 10):
+#		break
 # pprint(match_dict)
 f.close()
 
@@ -120,15 +120,15 @@ for pair in match_dict:
 	feature_matrix.append([jaccard_productType, exactMatch_productSegment, jaccard3gram_brand, exactMatch_GTIN, exactMatch_UPC,jaccard_category])
 
 	i = i + 1
-	if (i > 10):
-		break
+#	if (i > 10):
+#		break
 
 # print feature_matrix
 # print classlabels
 
 all_index = range(len(classlabels))
 random.seed(2)
-index_for_test = random.sample(all_index, 5)
+index_for_test = random.sample(all_index, 10000)
 index_for_train = list(set(all_index) - set(index_for_test))
 
 classlabels_test = []
@@ -137,8 +137,31 @@ feature_matrix_test = []
 for i in index_for_test:
 	classlabels_test.append(classlabels[i])
 	feature_matrix_test.append(feature_matrix[i])
+
+classlabels_train = []
+feature_matrix_train = []
+
+for i in index_for_train:
+	classlabels_train.append(classlabels[i])
+	feature_matrix_train.append(feature_matrix[i])
+
+with open('classlabels_train.pickle', 'wb') as handle:
+	pickle.dump(classlabels_train, handle)
+with open('feature_matrix_train.pickle', 'wb') as handle:
+	pickle.dump(feature_matrix_train, handle)
+with open('classlabels_test.pickle', 'wb') as handle:
+	pickle.dump(classlabels_test, handle)
+with open('feature_matrix_test.pickle', 'wb') as handle:
+	pickle.dump(feature_matrix_test, handle)
+
+
+
+
+
+"""
 print index_for_test
 print classlabels
 print classlabels_test
 print feature_matrix
 print feature_matrix_test
+"""
