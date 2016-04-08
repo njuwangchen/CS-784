@@ -40,6 +40,7 @@ print ( match_dict == b )
 i = 0
 feature_matrix = []
 classlabels = []
+id = [];
 
 for pair in match_dict:
 	id1 = pair[0]
@@ -57,14 +58,20 @@ for pair in match_dict:
 	if ("Product Type" in attribute_id1 and "Product Type" in attribute_id2):
 		#print attribute_id2["Product Type"][0]
 		jaccard_productType = simfunctions.jaccard(tokenizers.delimiter(attribute_id1["Product Type"][0]),tokenizers.delimiter(attribute_id2["Product Type"][0]))
+		jaccard3gram_productType = simfunctions.jaccard(tokenizers.qgram(attribute_id1["Product Type"][0], 3),tokenizers.qgram(attribute_id2["Product Type"][0], 3))
+		tfidf_productType = simfunctions.tfidf(tokenizers.delimiter(attribute_id1["Product Type"][0]),tokenizers.delimiter(attribute_id2["Product Type"][0]))
 	else:
 		jaccard_productType = 0
+		jaccard3gram_productType = 0
+		tfidf_productType = 0
 	# print jaccard_productType
 
 	####feature: Product Segment --- Exact Match
 	if "Product Segment" in attribute_id1 and "Product Segment" in attribute_id2:
 		#print attribute_id1["Product Segment"][0]
 		#print attribute_id2["Product Segment"][0]
+		jaccard_productSegment = simfunctions.jaccard(tokenizers.delimiter(attribute_id1["Product Segment"][0]),tokenizers.delimiter(attribute_id2["Product Segment"][0]))
+		jaccard3gram_productSegment= simfunctions.jaccard(tokenizers.qgram(attribute_id1["Product Segment"][0], 3),tokenizers.qgram(attribute_id2["Product Segment"][0], 3))
 		if (attribute_id1["Product Segment"][0] == attribute_id2["Product Segment"][0]):
 			exactMatch_productSegment = 1
 		else:
@@ -72,16 +79,20 @@ for pair in match_dict:
 
 	else:
 		exactMatch_productSegment = 0
+		jaccard_productSegment = 0
+		jaccard3gram_productSegment = 0
 
 	####feature: Brand --- Jaccard Score (3-grams)
 	if ("Brand" in attribute_id1 and "Brand" in attribute_id2):
 		# print attribute_id1["Brand"][0]
 		# print attribute_id2["Brand"][0]
 		# print tokenizers.qgram(attribute_id1["Brand"][0],3)
+		jaccard_brand = simfunctions.jaccard(tokenizers.delimiter(attribute_id1["Brand"][0]),tokenizers.delimiter(attribute_id2["Brand"][0]))
 		jaccard3gram_brand = simfunctions.jaccard(tokenizers.qgram(attribute_id1["Brand"][0], 3),
 												  tokenizers.qgram(attribute_id2["Brand"][0], 3))
 	else:  # if one brandname is missing
 		jaccard3gram_brand = 0
+		jaccard_brand = 0
 	# print jaccard3gram_brand
 
 	####feature: GTIN --- Exact Match
@@ -112,12 +123,15 @@ for pair in match_dict:
 		# print attribute_id2["Category"][0]
 		jaccard_category = simfunctions.jaccard(tokenizers.delimiter(attribute_id1["Category"][0]),
 												tokenizers.delimiter(attribute_id2["Category"][0]))
+		jaccard3gram_category = simfunctions.jaccard(tokenizers.qgram(attribute_id1["Category"][0], 3),
+												  tokenizers.qgram(attribute_id2["Category"][0], 3))
 	else:
 		jaccard_category = 0
+		jaccard3gram_category = 0
 		# print jaccard_category
 
 
-	feature_matrix.append([jaccard_productType, exactMatch_productSegment, jaccard3gram_brand, exactMatch_GTIN, exactMatch_UPC,jaccard_category])
+	feature_matrix.append([jaccard_productType, tfidf_productType,jaccard3gram_productType, exactMatch_productSegment, jaccard3gram_brand,jaccard_brand, exactMatch_GTIN, exactMatch_UPC,jaccard_category,jaccard3gram_category])
 
 	i = i + 1
 #	if (i > 10):
