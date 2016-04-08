@@ -40,13 +40,14 @@ print ( match_dict == b )
 i = 0
 feature_matrix = []
 classlabels = []
-id = [];
+id = []
 
 for pair in match_dict:
 	id1 = pair[0]
 	id2 = pair[1]
 	attribute_id1 = product_dict[id1]
 	attribute_id2 = product_dict[id2]
+	id.append([id1,id2])
 
 	# class label
 	if (match_dict[pair] == 'MATCH'):
@@ -159,6 +160,31 @@ for i in index_for_train:
 	classlabels_train.append(classlabels[i])
 	feature_matrix_train.append(feature_matrix[i])
 
+k = 9900
+id_tuning_100 = []
+attribute_tuning_100 = []
+label_tuning_100 = []
+
+j=1
+for i in index_for_train[-(10000-k):]:
+	id_tuning_100.append(id[i])
+	attribute_tuning_100.append([product_dict[id[i][0]],product_dict[id[i][1]]])
+	label_tuning_100.append(classlabels[i])
+	print j
+	print "id1: %s, id2:%s, match: %d" %(id[i][0] , id[i][1] ,classlabels[i])
+	print product_dict[id[i][0]]
+	print product_dict[id[i][1]]
+	print "***********************************8"
+	j=j+1
+
+"""
+with open('id_tuning_100.pickle', 'wb') as handle:
+	pickle.dump(id_tuning_100, handle)
+with open('attribute_tuning_100.pickle', 'wb') as handle:
+	pickle.dump(attribute_tuning_100, handle)
+with open('label_tuning_100.pickle', 'wb') as handle:
+	pickle.dump(label_tuning_100, handle)
+"""
 with open('classlabels_train.pickle', 'wb') as handle:
 	pickle.dump(classlabels_train, handle)
 with open('feature_matrix_train.pickle', 'wb') as handle:
