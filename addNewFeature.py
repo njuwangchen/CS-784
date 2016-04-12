@@ -84,18 +84,25 @@ for i in index_for_train:
     #
     # feature_matrix_train[k].append(name1_in_des2)
 
-    if ("Product Long Description" in attribute_id1 and "Product Name" in attribute_id2):
-        name_set = tokenizers.delimiter(attribute_id2["Product Name"][0])
-        des_set = tokenizers.delimiter(attribute_id1["Product Long Description"][0])
-        count = 0
-        for name in name_set:
-            if name in des_set:
-                count = count+1
-        name2_in_des1 = count/len(name_set)
-    else:
-        name2_in_des1 = 0
+    # if ("Product Long Description" in attribute_id1 and "Product Name" in attribute_id2):
+    #     name_set = tokenizers.delimiter(attribute_id2["Product Name"][0])
+    #     des_set = tokenizers.delimiter(attribute_id1["Product Long Description"][0])
+    #     count = 0
+    #     for name in name_set:
+    #         if name in des_set:
+    #             count = count+1
+    #     name2_in_des1 = count/len(name_set)
+    # else:
+    #     name2_in_des1 = 0
+    #
+    # feature_matrix_train[k].append(name2_in_des1)
 
-    feature_matrix_train[k].append(name2_in_des1)
+    if ("Product Long Description" in attribute_id1 and "Product Long Description" in attribute_id2):
+        jaccard_long_description = simfunctions.jaccard(tokenizers.delimiter(attribute_id1["Product Long Description"][0]), tokenizers.delimiter(attribute_id2["Product Long Description"][0]))
+    else:
+		jaccard_long_description = 0
+
+    feature_matrix_train[k].append(jaccard_long_description)
 
     k = k+1
 
@@ -136,18 +143,25 @@ for i in index_for_test:
     #
     # feature_matrix_test[k].append(name1_in_des2)
 
-    if ("Product Long Description" in attribute_id1 and "Product Name" in attribute_id2):
-        name_set = tokenizers.delimiter(attribute_id2["Product Name"][0])
-        des_set = tokenizers.delimiter(attribute_id1["Product Long Description"][0])
-        count = 0
-        for name in name_set:
-            if name in des_set:
-                count = count+1
-        name2_in_des1 = count/len(name_set)
-    else:
-        name2_in_des1 = 0
+    # if ("Product Long Description" in attribute_id1 and "Product Name" in attribute_id2):
+    #     name_set = tokenizers.delimiter(attribute_id2["Product Name"][0])
+    #     des_set = tokenizers.delimiter(attribute_id1["Product Long Description"][0])
+    #     count = 0
+    #     for name in name_set:
+    #         if name in des_set:
+    #             count = count+1
+    #     name2_in_des1 = count/len(name_set)
+    # else:
+    #     name2_in_des1 = 0
+    #
+    # feature_matrix_test[k].append(name2_in_des1)
 
-    feature_matrix_test[k].append(name2_in_des1)
+    if ("Product Long Description" in attribute_id1 and "Product Long Description" in attribute_id2):
+        jaccard_long_description = simfunctions.jaccard(tokenizers.delimiter(attribute_id1["Product Long Description"][0]), tokenizers.delimiter(attribute_id2["Product Long Description"][0]))
+    else:
+		jaccard_long_description = 0
+
+    feature_matrix_test[k].append(jaccard_long_description)
 
     k = k+1
 
