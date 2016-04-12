@@ -1,10 +1,7 @@
 import pickle
 import random
 
-import numpy
 from py_stringmatching import simfunctions, tokenizers
-
-# sys.stdout = open('file', 'w')
 
 with open('prodID_dict1.pickle', 'rb') as handle:
 	product_dict = pickle.load(handle)
@@ -12,19 +9,13 @@ with open('prodID_dict1.pickle', 'rb') as handle:
 with open('attributeName_productID_dict1.pickle', 'rb') as handle:
 	attributeName_productID_dict = pickle.load(handle)
 
-print product_dict['35496125']['GTIN']
-
 match_dict = {}
-f = open('elec_pairs_stage1.txt', 'r')
+f = open('elec_pairs_stage3.txt', 'r')
 i = 1
 for line in f:
 	list_line = line.split('?')
-	print(i)
 	match_dict[(list_line[1], list_line[3])] = list_line[5].strip()
 	i = i + 1
-#	if (i > 10):
-#		break
-# pprint(match_dict)
 f.close()
 
 """
@@ -41,6 +32,44 @@ i = 0
 feature_matrix = []
 classlabels = []
 id = []
+productName_courpus = []
+# manufacturer_courpus = []
+# longDescription_courpus = []
+# color_courpus = []
+# productType_courpus = []
+
+for pair in match_dict:
+	id1 = pair[0]
+	id2 = pair[1]
+	attribute_id1 = product_dict[id1]
+	attribute_id2 = product_dict[id2]
+
+	if "Product Name" in attribute_id1:
+		productName_courpus.append(tokenizers.delimiter(attribute_id1["Product Name"][0]))
+	if "Product Name" in attribute_id2:
+		productName_courpus.append(tokenizers.delimiter(attribute_id2["Product Name"][0]))
+
+	# if "Manufacturer" in attribute_id1:
+	# 	manufacturer_courpus.append(tokenizers.delimiter(attribute_id1["Manufacturer"][0]))
+	# if "Manufacturer" in attribute_id2:
+	# 	manufacturer_courpus.append(tokenizers.delimiter(attribute_id2["Manufacturer"][0]))
+    #
+	# if "Color" in attribute_id1:
+	# 	color_courpus.append(tokenizers.delimiter(attribute_id1["Color"][0]))
+	# if "Color" in attribute_id2:
+	# 	color_courpus.append(tokenizers.delimiter(attribute_id2["Color"][0]))
+    #
+	# if "Product Long Description" in attribute_id1:
+	# 	longDescription_courpus.append(tokenizers.delimiter(attribute_id1["Product Long Description"][0]))
+	# if "Product Long Description" in attribute_id2:
+	# 	longDescription_courpus.append(tokenizers.delimiter(attribute_id2["Product Long Description"][0]))
+    #
+	# if "Product Type" in attribute_id1:
+	# 	productName_courpus.append(tokenizers.delimiter(attribute_id1["Product Type"][0]))
+	# if "Product Type" in attribute_id2:
+	# 	productName_courpus.append(tokenizers.delimiter(attribute_id2["Product Type"][0]))
+
+
 
 for pair in match_dict:
 	id1 = pair[0]
@@ -54,6 +83,48 @@ for pair in match_dict:
 		classlabels.append(1)
 	else:
 		classlabels.append(0)
+
+
+	####feature: Product Name ---- Jaccard Score (word boudary, 3-gram), edit distance, tf/idf
+	if ("Product Name" in attribute_id1 and "Product Name" in attribute_id2):
+		jaccard_productName = simfunctions.jaccard(tokenizers.delimiter(attribute_id1["Product Name"][0]), tokenizers.delimiter(attribute_id2["Product Name"][0]))
+		jaccard3gram_productName = simfunctions.jaccard(tokenizers.qgram(attribute_id1["Product Name"][0], 3), tokenizers.qgram(attribute_id2["Product Name"][0], 3))
+		tfidf_productName = simfunctions.tfidf(tokenizers.delimiter(attribute_id1["Product Name"][0]), tokenizers.delimiter(attribute_id2["Product Name"][0]), productName_courpus)
+		edit_productName = simfunctions.levenshtein(attribute_id1["Product Name"][0], attribute_id2["Product Name"][0])
+		edit_productName = 1 - edit_productName/max(len(attribute_id1["Product Name"][0]), len(attribute_id2["Product Name"][0]))
+	else:
+		jaccard_productName = 0
+		jaccard3gram_productName = 0
+		tfidf_productName = 0
+		edit_productName = 0
+
+	####feature: Manufacturer
+	if ("Manufacturer" in attribute_id1 and "Manufacturer" in attribute_id2):
+		jaccard_manufacturer = simfunctions.jaccard(tokenizers.delimiter(attribute_id1["Manufacturer"][0]), tokenizers.delimiter(attribute_id2["Manufacturer"][0]))
+		jaccard3gram_manufacturer = simfunctions.jaccard(tokenizers.qgram(attribute_id1["Manufacturer"][0], 3), tokenizers.qgram(attribute_id2["Manufacturer"][0], 3))
+		tfidf_manufacturer = simfunctions.tfidf(tokenizers.delimiter(attribute_id1["Manufacturer"][0]), tokenizers.delimiter(attribute_id2["Manufacturer"][0]))
+	else:
+		jaccard_manufacturer = 0
+		jaccard3gram_manufacturer = 0
+		tfidf_manufacturer = 0
+
+	####feature: Color
+	if ("Color" in attribute_id1 and "Color" in attribute_id2):
+		jaccard_color = simfunctions.jaccard(tokenizers.delimiter(attribute_id1["Color"][0]), tokenizers.delimiter(attribute_id2["Color"][0]))
+		jaccard3gram_color = simfunctions.jaccard(tokenizers.qgram(attribute_id1["Color"][0], 3), tokenizers.qgram(attribute_id2["Color"][0], 3))
+		tfidf_color = simfunctions.tfidf(tokenizers.delimiter(attribute_id1["Color"][0]), tokenizers.delimiter(attribute_id2["Color"][0]))
+	else:
+		jaccard_color = 0
+		jaccard3gram_color = 0
+		tfidf_color = 0
+
+	####feature: Long Description
+	if ("Product Long Description" in attribute_id1 and "Product Long Description" in attribute_id2):
+		tfidf_long_description = simfunctions.tfidf(tokenizers.delimiter(attribute_id1["Product Long Description"][0]), tokenizers.delimiter(attribute_id2["Product Long Description"][0]))
+	else:
+		tfidf_long_description = 0
+
+
 
 	####feature: Product Type --- Jaccard Score (word boundary)
 	if ("Product Type" in attribute_id1 and "Product Type" in attribute_id2):
@@ -96,26 +167,25 @@ for pair in match_dict:
 		jaccard_brand = 0
 	# print jaccard3gram_brand
 
-	####feature: GTIN --- Exact Match
-	if ("GTIN" in attribute_id1 and "GTIN" in attribute_id2):
-		# print attribute_id1["GTIN"][0]
-		# print attribute_id2["GTIN"][0]
-		if (attribute_id1["GTIN"][0] == attribute_id2["GTIN"][0]):
-			exactMatch_GTIN = 1
-	else:
-		exactMatch_GTIN = 0
-	# print exactMatch_GTIN
-
-	if ("UPC" in attribute_id1 and "UPC" in attribute_id2):
-		# print attribute_id1["UPC"][0]
-		# print attribute_id2["UPC"][0]
-		if (attribute_id1["UPC"][0] == attribute_id2["UPC"][0]):
-			exactMatch_UPC = 1
-		else:
-			exactMatch_UPC = 0
-	else:
-		exactMatch_UPC = 0
-	# print exactMatch_UPC
+	# ####feature: GTIN --- Exact Match
+	# if ("GTIN" in attribute_id1 and "GTIN" in attribute_id2):
+	# 	# print attribute_id1["GTIN"][0]
+	# 	# print attribute_id2["GTIN"][0]
+	# 	if (attribute_id1["GTIN"][0] == attribute_id2["GTIN"][0]):
+	# 		exactMatch_GTIN = 1
+	# else:
+	# 	exactMatch_GTIN = 0
+	# # print exactMatch_GTIN
+    #
+	# if ("UPC" in attribute_id1 and "UPC" in attribute_id2):
+	# 	# print attribute_id1["UPC"][0]
+	# 	# print attribute_id2["UPC"][0]
+	# 	if (attribute_id1["UPC"][0] == attribute_id2["UPC"][0]):
+	# 		exactMatch_UPC = 1
+	# 	else:
+	# 		exactMatch_UPC = 0
+	# else:
+	# 	exactMatch_UPC = 0
 
 	####feature: Category --- Jaccard Score (word boundary)
 
@@ -132,14 +202,10 @@ for pair in match_dict:
 		# print jaccard_category
 
 
-	feature_matrix.append([jaccard_productType, tfidf_productType,jaccard3gram_productType, exactMatch_productSegment, jaccard3gram_brand,jaccard_brand, exactMatch_GTIN, exactMatch_UPC,jaccard_category,jaccard3gram_category])
+	feature_matrix.append([jaccard_manufacturer, jaccard3gram_manufacturer, tfidf_manufacturer, jaccard_color, jaccard3gram_color, tfidf_color, tfidf_long_description, jaccard_productName, jaccard3gram_productName, tfidf_productName, edit_productName, jaccard_productType, tfidf_productType,jaccard3gram_productType, exactMatch_productSegment, jaccard3gram_brand,jaccard_brand,jaccard_category,jaccard3gram_category])
 
 	i = i + 1
-#	if (i > 10):
-#		break
-
-# print feature_matrix
-# print classlabels
+	print i
 
 all_index = range(len(classlabels))
 random.seed(2)

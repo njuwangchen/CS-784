@@ -8,7 +8,7 @@ product_dict={}
 attributeName_productID_dict={}
 
 #f = open('sample.txt', 'r')
-f = open('elec_pairs_stage1.txt', 'r')
+f = open('elec_pairs_stage3.txt', 'r')
 i=1
 for line in f:
     #print type(line)

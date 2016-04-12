@@ -34,7 +34,7 @@ print "R; %f" % recall_score(y_true, y_pred_dt)
 
 ####Random Forest,
 ## The number of trees in the forest, n_estimators 
-rf = RandomForestClassifier(n_estimators = 100)
+rf = RandomForestClassifier(n_estimators = 100, max_features=5)
 print rf.fit(X,Y)
 y_pred_rf = rf.predict(x).tolist()
 print "random forest"
@@ -54,7 +54,7 @@ print "R; %f" % recall_score(y_true, y_pred_nb)
 
 
 ####Support Vector Machines
-clf = svm.SVC()
+clf = svm.SVC(C=1000, class_weight =  {0: 10, 1: 1})
 print clf.fit(X, Y)
 #my_list[-5:] # grab the last five elements
 y_pred_svm = clf.predict(x).tolist()
