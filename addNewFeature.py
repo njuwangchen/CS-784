@@ -27,7 +27,7 @@ for line in f:
 f.close()
 
 #brand_courpus = []
-#longDescription_courpus = []
+
 # for pair in match_dict:
 #     id1 = pair[0]
 #     id2 = pair[1]
@@ -39,10 +39,6 @@ f.close()
     # if "Brand" in attribute_id2:
     #     brand_courpus.append(tokenizers.delimiter(attribute_id2["Brand"][0]))
 
-    # if "Product Long Description" in attribute_id1:
-    #     longDescription_courpus.append(tokenizers.delimiter(attribute_id1["Product Long Description"][0]))
-	# if "Product Long Description" in attribute_id2:
-	# 	  longDescription_courpus.append(tokenizers.delimiter(attribute_id2["Product Long Description"][0]))
 
 all_index = range(len(match_dict))
 random.seed(2)
@@ -75,25 +71,31 @@ for i in index_for_train:
     #
     # feature_matrix_train[k].append(tfidf_brand)
 
-    # if ("Product Long Description" in attribute_id1 and "Product Long Description" in attribute_id2):
-    #     tfidf_long_description = simfunctions.tfidf(tokenizers.delimiter(attribute_id1["Product Long Description"][0]), tokenizers.delimiter(attribute_id2["Product Long Description"][0]), longDescription_courpus)
+    # if ("Product Name" in attribute_id1 and "Product Long Description" in attribute_id2):
+    #     name_set = tokenizers.delimiter(attribute_id1["Product Name"][0])
+    #     des_set = tokenizers.delimiter(attribute_id2["Product Long Description"][0])
+    #     count = 0
+    #     for name in name_set:
+    #         if name in des_set:
+    #             count = count+1
+    #     name1_in_des2 = count/len(name_set)
     # else:
-    #     tfidf_long_description = 0
+    #     name1_in_des2 = 0
     #
-    # feature_matrix_train[k].append(tfidf_long_description)
+    # feature_matrix_train[k].append(name1_in_des2)
 
-    if ("Product Name" in attribute_id1 and "Product Long Description" in attribute_id2):
-        name_set = tokenizers.delimiter(attribute_id1["Product Name"][0])
-        des_set = tokenizers.delimiter(attribute_id2["Product Long Description"][0])
+    if ("Product Long Description" in attribute_id1 and "Product Name" in attribute_id2):
+        name_set = tokenizers.delimiter(attribute_id2["Product Name"][0])
+        des_set = tokenizers.delimiter(attribute_id1["Product Long Description"][0])
         count = 0
         for name in name_set:
             if name in des_set:
                 count = count+1
-        name1_in_des2 = count/len(name_set)
+        name2_in_des1 = count/len(name_set)
     else:
-        name1_in_des2 = 0
+        name2_in_des1 = 0
 
-    feature_matrix_train[k].append(name1_in_des2)
+    feature_matrix_train[k].append(name2_in_des1)
 
     k = k+1
 
@@ -121,25 +123,31 @@ for i in index_for_test:
     #
     # feature_matrix_test[k].append(tfidf_brand)
 
-    # if ("Product Long Description" in attribute_id1 and "Product Long Description" in attribute_id2):
-    #     tfidf_long_description = simfunctions.tfidf(tokenizers.delimiter(attribute_id1["Product Long Description"][0]), tokenizers.delimiter(attribute_id2["Product Long Description"][0]), longDescription_courpus)
+    # if ("Product Name" in attribute_id1 and "Product Long Description" in attribute_id2):
+    #     name_set = tokenizers.delimiter(attribute_id1["Product Name"][0])
+    #     des_set = tokenizers.delimiter(attribute_id2["Product Long Description"][0])
+    #     count = 0
+    #     for name in name_set:
+    #         if name in des_set:
+    #             count = count+1
+    #     name1_in_des2 = count/len(name_set)
     # else:
-    #     tfidf_long_description = 0
+    #     name1_in_des2 = 0
     #
-    # feature_matrix_test[k].append(tfidf_long_description)
+    # feature_matrix_test[k].append(name1_in_des2)
 
-    if ("Product Name" in attribute_id1 and "Product Long Description" in attribute_id2):
-        name_set = tokenizers.delimiter(attribute_id1["Product Name"][0])
-        des_set = tokenizers.delimiter(attribute_id2["Product Long Description"][0])
+    if ("Product Long Description" in attribute_id1 and "Product Name" in attribute_id2):
+        name_set = tokenizers.delimiter(attribute_id2["Product Name"][0])
+        des_set = tokenizers.delimiter(attribute_id1["Product Long Description"][0])
         count = 0
         for name in name_set:
             if name in des_set:
                 count = count+1
-        name1_in_des2 = count/len(name_set)
+        name2_in_des1 = count/len(name_set)
     else:
-        name1_in_des2 = 0
+        name2_in_des1 = 0
 
-    feature_matrix_test[k].append(name1_in_des2)
+    feature_matrix_test[k].append(name2_in_des1)
 
     k = k+1
 
