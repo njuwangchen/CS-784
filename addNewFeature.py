@@ -51,9 +51,12 @@ index_for_train = list(set(all_index) - set(index_for_test))
 
 pair_keys = match_dict.keys()
 
+f = open("loglog", 'w')
+
 k = 0
 for i in index_for_train:
     print 'train', k
+    f.write('train'+' '+k+'\n')
     pair = pair_keys[i]
     id1 = pair[0]
     id2 = pair[1]
@@ -87,6 +90,7 @@ for i in index_for_train:
 k = 0
 for i in index_for_test:
     print 'test', k
+    f.write('test'+' '+k+'\n')
     pair = pair_keys[i]
     id1 = pair[0]
     id2 = pair[1]
@@ -117,6 +121,7 @@ for i in index_for_test:
 
     k = k+1
 
+f.close()
 
 with open('classlabels_train.pickle', 'wb') as handle:
 	pickle.dump(classlabels_train, handle)
