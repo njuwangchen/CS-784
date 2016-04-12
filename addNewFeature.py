@@ -26,17 +26,23 @@ for line in f:
 	i = i + 1
 f.close()
 
-brand_courpus = []
+#brand_courpus = []
+longDescription_courpus = []
 for pair in match_dict:
     id1 = pair[0]
     id2 = pair[1]
     attribute_id1 = product_dict[id1]
     attribute_id2 = product_dict[id2]
 
-    if "Brand" in attribute_id1:
-        brand_courpus.append(tokenizers.delimiter(attribute_id1["Brand"][0]))
-    if "Brand" in attribute_id2:
-        brand_courpus.append(tokenizers.delimiter(attribute_id2["Brand"][0]))
+    # if "Brand" in attribute_id1:
+    #     brand_courpus.append(tokenizers.delimiter(attribute_id1["Brand"][0]))
+    # if "Brand" in attribute_id2:
+    #     brand_courpus.append(tokenizers.delimiter(attribute_id2["Brand"][0]))
+
+    if "Product Long Description" in attribute_id1:
+        longDescription_courpus.append(tokenizers.delimiter(attribute_id1["Product Long Description"][0]))
+	if "Product Long Description" in attribute_id2:
+		longDescription_courpus.append(tokenizers.delimiter(attribute_id2["Product Long Description"][0]))
 
 all_index = range(len(match_dict))
 random.seed(2)
@@ -62,12 +68,19 @@ for i in index_for_train:
     #
     # feature_matrix_train[k].append(edit_brand)
 
-    if ("Brand" in attribute_id1 and "Brand" in attribute_id2):
-        tfidf_brand = simfunctions.tfidf(tokenizers.delimiter(attribute_id1["Brand"][0]), tokenizers.delimiter(attribute_id2["Brand"][0]), brand_courpus)
-    else:
-        tfidf_brand = 0
+    # if ("Brand" in attribute_id1 and "Brand" in attribute_id2):
+    #     tfidf_brand = simfunctions.tfidf(tokenizers.delimiter(attribute_id1["Brand"][0]), tokenizers.delimiter(attribute_id2["Brand"][0]), brand_courpus)
+    # else:
+    #     tfidf_brand = 0
+    #
+    # feature_matrix_train[k].append(tfidf_brand)
 
-    feature_matrix_train[k].append(tfidf_brand)
+    if ("Product Long Description" in attribute_id1 and "Product Long Description" in attribute_id2):
+        tfidf_long_description = simfunctions.tfidf(tokenizers.delimiter(attribute_id1["Product Long Description"][0]), tokenizers.delimiter(attribute_id2["Product Long Description"][0]), longDescription_courpus)
+    else:
+        tfidf_long_description = 0
+
+    feature_matrix_train[k].append(tfidf_long_description)
 
     k = k+1
 
@@ -88,12 +101,19 @@ for i in index_for_test:
     #
     # feature_matrix_test[k].append(edit_brand)
 
-    if ("Brand" in attribute_id1 and "Brand" in attribute_id2):
-        tfidf_brand = simfunctions.tfidf(tokenizers.delimiter(attribute_id1["Brand"][0]), tokenizers.delimiter(attribute_id2["Brand"][0]), brand_courpus)
-    else:
-        tfidf_brand = 0
+    # if ("Brand" in attribute_id1 and "Brand" in attribute_id2):
+    #     tfidf_brand = simfunctions.tfidf(tokenizers.delimiter(attribute_id1["Brand"][0]), tokenizers.delimiter(attribute_id2["Brand"][0]), brand_courpus)
+    # else:
+    #     tfidf_brand = 0
+    #
+    # feature_matrix_test[k].append(tfidf_brand)
 
-    feature_matrix_test[k].append(tfidf_brand)
+    if ("Product Long Description" in attribute_id1 and "Product Long Description" in attribute_id2):
+        tfidf_long_description = simfunctions.tfidf(tokenizers.delimiter(attribute_id1["Product Long Description"][0]), tokenizers.delimiter(attribute_id2["Product Long Description"][0]), longDescription_courpus)
+    else:
+        tfidf_long_description = 0
+
+    feature_matrix_test[k].append(tfidf_long_description)
 
     k = k+1
 
