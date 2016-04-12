@@ -97,12 +97,19 @@ for i in index_for_train:
     #
     # feature_matrix_train[k].append(name2_in_des1)
 
-    if ("Product Long Description" in attribute_id1 and "Product Long Description" in attribute_id2):
-        jaccard_long_description = simfunctions.jaccard(tokenizers.delimiter(attribute_id1["Product Long Description"][0]), tokenizers.delimiter(attribute_id2["Product Long Description"][0]))
-    else:
-		jaccard_long_description = 0
+    # if ("Product Long Description" in attribute_id1 and "Product Long Description" in attribute_id2):
+    #     jaccard_long_description = simfunctions.jaccard(tokenizers.delimiter(attribute_id1["Product Long Description"][0]), tokenizers.delimiter(attribute_id2["Product Long Description"][0]))
+    # else:
+		# jaccard_long_description = 0
+    #
+    # feature_matrix_train[k].append(jaccard_long_description)
 
-    feature_matrix_train[k].append(jaccard_long_description)
+    if ("Product Long Description" in attribute_id1 and "Product Long Description" in attribute_id2):
+        jaccard3_long_description = simfunctions.jaccard(tokenizers.qgram(attribute_id1["Product Long Description"][0], 3), tokenizers.qgram(attribute_id2["Product Long Description"][0], 3))
+    else:
+		jaccard3_long_description = 0
+
+    feature_matrix_train[k].append(jaccard3_long_description)
 
     k = k+1
 
@@ -156,12 +163,19 @@ for i in index_for_test:
     #
     # feature_matrix_test[k].append(name2_in_des1)
 
-    if ("Product Long Description" in attribute_id1 and "Product Long Description" in attribute_id2):
-        jaccard_long_description = simfunctions.jaccard(tokenizers.delimiter(attribute_id1["Product Long Description"][0]), tokenizers.delimiter(attribute_id2["Product Long Description"][0]))
-    else:
-		jaccard_long_description = 0
+    # if ("Product Long Description" in attribute_id1 and "Product Long Description" in attribute_id2):
+    #     jaccard_long_description = simfunctions.jaccard(tokenizers.delimiter(attribute_id1["Product Long Description"][0]), tokenizers.delimiter(attribute_id2["Product Long Description"][0]))
+    # else:
+		# jaccard_long_description = 0
+    #
+    # feature_matrix_test[k].append(jaccard_long_description)
 
-    feature_matrix_test[k].append(jaccard_long_description)
+    if ("Product Long Description" in attribute_id1 and "Product Long Description" in attribute_id2):
+        jaccard3_long_description = simfunctions.jaccard(tokenizers.qgram(attribute_id1["Product Long Description"][0], 3), tokenizers.qgram(attribute_id2["Product Long Description"][0], 3))
+    else:
+		jaccard3_long_description = 0
+
+    feature_matrix_test[k].append(jaccard3_long_description)
 
     k = k+1
 
