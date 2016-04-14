@@ -26,8 +26,6 @@ x = feature_matrix_train[-(10000-k):]
 
 ####Decision Tree
 dt = DecisionTreeClassifier()
-print X
-print Y
 print dt.fit(X,Y)
 y_pred_dt = dt.predict(x).tolist()
 print "Decision Tree"

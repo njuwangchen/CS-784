@@ -506,6 +506,32 @@ for i in index_for_test:
 
     feature_matrix_test[k].append(brand2_in_des1)
 
+    if ("Manufacturer" in attribute_id1 and "Product Short Description" in attribute_id2):
+        manufacturer_set = tokenizers.delimiter(attribute_id1["Manufacturer"][0])
+        des = attribute_id2["Product Short Description"][0]
+        count = 0
+        for manufacturer in manufacturer_set:
+            if manufacturer in des:
+                count = count+1
+        manufacturer1_in_des2 = count/len(manufacturer_set)
+    else:
+        manufacturer1_in_des2 = 0
+
+    feature_matrix_test[k].append(manufacturer1_in_des2)
+
+    if ("Manufacturer" in attribute_id2 and "Product Short Description" in attribute_id1):
+        manufacturer_set = tokenizers.delimiter(attribute_id2["Manufacturer"][0])
+        des = attribute_id1["Product Short Description"][0]
+        count = 0
+        for manufacturer in manufacturer_set:
+            if manufacturer in des:
+                count = count+1
+        manufacturer2_in_des1 = count/len(manufacturer_set)
+    else:
+        manufacturer2_in_des1 = 0
+
+    feature_matrix_test[k].append(manufacturer2_in_des1)
+
     k = k+1
 
 with open('classlabels_train.pickle', 'wb') as handle:
