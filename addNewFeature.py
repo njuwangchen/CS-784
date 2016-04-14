@@ -163,18 +163,31 @@ for i in index_for_train:
     #
     # feature_matrix_train[k].append(manufacturer2_in_des1)
 
-    if ("Product Short Description" in attribute_id1 and "Product Long Description" in attribute_id2):
-        short_des_set = tokenizers.delimiter(attribute_id1["Product Short Description"][0])
-        des = attribute_id2["Product Long Description"][0]
+    # if ("Product Short Description" in attribute_id1 and "Product Long Description" in attribute_id2):
+    #     short_des_set = tokenizers.delimiter(attribute_id1["Product Short Description"][0])
+    #     des = attribute_id2["Product Long Description"][0]
+    #     count = 0
+    #     for short in short_des_set:
+    #         if short in des:
+    #             count = count+1
+    #     short1_in_des2 = count/len(short_des_set)
+    # else:
+    #     short1_in_des2 = 0
+    #
+    # feature_matrix_train[k].append(short1_in_des2)
+
+    if ("Product Short Description" in attribute_id2 and "Product Long Description" in attribute_id1):
+        short_des_set = tokenizers.delimiter(attribute_id2["Product Short Description"][0])
+        des = attribute_id1["Product Long Description"][0]
         count = 0
         for short in short_des_set:
             if short in des:
                 count = count+1
-        short1_in_des2 = count/len(short_des_set)
+        short2_in_des1 = count/len(short_des_set)
     else:
-        short1_in_des2 = 0
+        short2_in_des1 = 0
 
-    feature_matrix_train[k].append(short1_in_des2)
+    feature_matrix_train[k].append(short2_in_des1)
 
     k = k+1
 
@@ -294,18 +307,31 @@ for i in index_for_test:
     #
     # feature_matrix_test[k].append(manufacturer2_in_des1)
 
-    if ("Product Short Description" in attribute_id1 and "Product Long Description" in attribute_id2):
-        short_des_set = tokenizers.delimiter(attribute_id1["Product Short Description"][0])
-        des = attribute_id2["Product Long Description"][0]
+    # if ("Product Short Description" in attribute_id1 and "Product Long Description" in attribute_id2):
+    #     short_des_set = tokenizers.delimiter(attribute_id1["Product Short Description"][0])
+    #     des = attribute_id2["Product Long Description"][0]
+    #     count = 0
+    #     for short in short_des_set:
+    #         if short in des:
+    #             count = count+1
+    #     short1_in_des2 = count/len(short_des_set)
+    # else:
+    #     short1_in_des2 = 0
+    #
+    # feature_matrix_test[k].append(short1_in_des2)
+
+    if ("Product Short Description" in attribute_id2 and "Product Long Description" in attribute_id1):
+        short_des_set = tokenizers.delimiter(attribute_id2["Product Short Description"][0])
+        des = attribute_id1["Product Long Description"][0]
         count = 0
         for short in short_des_set:
             if short in des:
                 count = count+1
-        short1_in_des2 = count/len(short_des_set)
+        short2_in_des1 = count/len(short_des_set)
     else:
-        short1_in_des2 = 0
+        short2_in_des1 = 0
 
-    feature_matrix_test[k].append(short1_in_des2)
+    feature_matrix_test[k].append(short2_in_des1)
 
     k = k+1
 
