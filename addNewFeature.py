@@ -176,18 +176,39 @@ for i in index_for_train:
     #
     # feature_matrix_train[k].append(short1_in_des2)
 
-    if ("Product Short Description" in attribute_id2 and "Product Long Description" in attribute_id1):
-        short_des_set = tokenizers.delimiter(attribute_id2["Product Short Description"][0])
-        des = attribute_id1["Product Long Description"][0]
-        count = 0
-        for short in short_des_set:
-            if short in des:
-                count = count+1
-        short2_in_des1 = count/len(short_des_set)
-    else:
-        short2_in_des1 = 0
+    # if ("Product Short Description" in attribute_id2 and "Product Long Description" in attribute_id1):
+    #     short_des_set = tokenizers.delimiter(attribute_id2["Product Short Description"][0])
+    #     des = attribute_id1["Product Long Description"][0]
+    #     count = 0
+    #     for short in short_des_set:
+    #         if short in des:
+    #             count = count+1
+    #     short2_in_des1 = count/len(short_des_set)
+    # else:
+    #     short2_in_des1 = 0
+    #
+    # feature_matrix_train[k].append(short2_in_des1)
 
-    feature_matrix_train[k].append(short2_in_des1)
+    # if ("Product Short Description" in attribute_id1 and "Product Short Description" in attribute_id2):
+    #     jaccard_short_description = simfunctions.jaccard(tokenizers.delimiter(attribute_id1["Product Short Description"][0]), tokenizers.delimiter(attribute_id2["Product Short Description"][0]))
+    # else:
+		# jaccard_short_description = 0
+    #
+    # feature_matrix_train[k].append(jaccard_short_description)
+    #
+    # if ("Product Short Description" in attribute_id1 and "Product Short Description" in attribute_id2):
+    #     jaccard3_short_description = simfunctions.jaccard(tokenizers.qgram(attribute_id1["Product Short Description"][0], 3), tokenizers.qgram(attribute_id2["Product Short Description"][0], 3))
+    # else:
+		# jaccard3_short_description = 0
+    #
+    # feature_matrix_train[k].append(jaccard3_short_description)
+
+    if ("Product Short Description" in attribute_id1 and "Product Short Description" in attribute_id2):
+        tfidf_short_description = simfunctions.tfidf(tokenizers.delimiter(attribute_id1["Product Short Description"][0]), tokenizers.delimiter(attribute_id2["Product Short Description"][0]))
+    else:
+        tfidf_short_description = 0
+
+    feature_matrix_train[k].append(tfidf_short_description)
 
     k = k+1
 
@@ -320,18 +341,39 @@ for i in index_for_test:
     #
     # feature_matrix_test[k].append(short1_in_des2)
 
-    if ("Product Short Description" in attribute_id2 and "Product Long Description" in attribute_id1):
-        short_des_set = tokenizers.delimiter(attribute_id2["Product Short Description"][0])
-        des = attribute_id1["Product Long Description"][0]
-        count = 0
-        for short in short_des_set:
-            if short in des:
-                count = count+1
-        short2_in_des1 = count/len(short_des_set)
-    else:
-        short2_in_des1 = 0
+    # if ("Product Short Description" in attribute_id2 and "Product Long Description" in attribute_id1):
+    #     short_des_set = tokenizers.delimiter(attribute_id2["Product Short Description"][0])
+    #     des = attribute_id1["Product Long Description"][0]
+    #     count = 0
+    #     for short in short_des_set:
+    #         if short in des:
+    #             count = count+1
+    #     short2_in_des1 = count/len(short_des_set)
+    # else:
+    #     short2_in_des1 = 0
+    #
+    # feature_matrix_test[k].append(short2_in_des1)
 
-    feature_matrix_test[k].append(short2_in_des1)
+    # if ("Product Short Description" in attribute_id1 and "Product Short Description" in attribute_id2):
+    #     jaccard_short_description = simfunctions.jaccard(tokenizers.delimiter(attribute_id1["Product Short Description"][0]), tokenizers.delimiter(attribute_id2["Product Short Description"][0]))
+    # else:
+		# jaccard_short_description = 0
+    #
+    # feature_matrix_test[k].append(jaccard_short_description)
+    #
+    # if ("Product Short Description" in attribute_id1 and "Product Short Description" in attribute_id2):
+    #     jaccard3_short_description = simfunctions.jaccard(tokenizers.qgram(attribute_id1["Product Short Description"][0], 3), tokenizers.qgram(attribute_id2["Product Short Description"][0], 3))
+    # else:
+		# jaccard3_short_description = 0
+    #
+    # feature_matrix_test[k].append(jaccard3_short_description)
+
+    if ("Product Short Description" in attribute_id1 and "Product Short Description" in attribute_id2):
+        tfidf_short_description = simfunctions.tfidf(tokenizers.delimiter(attribute_id1["Product Short Description"][0]), tokenizers.delimiter(attribute_id2["Product Short Description"][0]))
+    else:
+        tfidf_short_description = 0
+
+    feature_matrix_test[k].append(tfidf_short_description)
 
     k = k+1
 
