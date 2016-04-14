@@ -4,6 +4,7 @@ from sklearn import svm, linear_model
 from sklearn.naive_bayes import GaussianNB
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
+from sklearn import cross_validation
 
 with open('classlabels_train.pickle', 'rb') as handle:
 	classlabels_train = pickle.load(handle)
@@ -15,7 +16,7 @@ with open('feature_matrix_test.pickle', 'rb') as handle:
 	feature_matrix_test = pickle.load(handle)
 
 #print len(classlabels_test), len(classlabels_train),len(feature_matrix_test),len(feature_matrix_train)
-k = 9900   # 9900 out of 10000 as the training set, 10000-9900 as the tuning set
+k = 8000   # 9900 out of 10000 as the training set, 10000-9900 as the tuning set
 X = feature_matrix_train[:k]
 Y = classlabels_train[:k]
 
@@ -34,7 +35,7 @@ print "R; %f" % recall_score(y_true, y_pred_dt)
 
 ####Random Forest,
 ## The number of trees in the forest, n_estimators 
-rf = RandomForestClassifier(n_estimators = 100, max_features=5)
+rf = RandomForestClassifier(n_estimators = 100, min_samples_split=1)
 print rf.fit(X,Y)
 y_pred_rf = rf.predict(x).tolist()
 print "random forest"
@@ -72,3 +73,23 @@ y_pred_logreg = logreg.predict(x).tolist()
 print "Log Reg"
 print "P; %f" % precision_score(y_true, y_pred_logreg)
 print "R; %f" % recall_score(y_true, y_pred_logreg)
+
+print
+
+#test_set cv
+# rf = RandomForestClassifier(n_estimators = 100, min_samples_split=1)
+# precision = cross_validation.cross_val_score(rf, feature_matrix_test, classlabels_test, cv=5, scoring='precision')
+# recall = cross_validation.cross_val_score(rf, feature_matrix_test, classlabels_test, cv=5, scoring='recall')
+# print "test set random forest"
+# print "Precision:", precision.mean()
+# print "Recall:", recall.mean()
+#
+# clf = svm.SVC(C=1000, class_weight =  {0: 10, 1: 1})
+# precision = cross_validation.cross_val_score(clf, feature_matrix_test, classlabels_test, cv=5, scoring='precision')
+# recall = cross_validation.cross_val_score(clf, feature_matrix_test, classlabels_test, cv=5, scoring='recall')
+# print "test set svm"
+# print "Precision:", precision.mean()
+# print "Recall:", recall.mean()
+
+
+
