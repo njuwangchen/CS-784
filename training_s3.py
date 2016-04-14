@@ -26,6 +26,8 @@ x = feature_matrix_train[-(10000-k):]
 
 ####Decision Tree
 dt = DecisionTreeClassifier()
+print X
+print Y
 print dt.fit(X,Y)
 y_pred_dt = dt.predict(x).tolist()
 print "Decision Tree"
@@ -37,10 +39,18 @@ print "R; %f" % recall_score(y_true, y_pred_dt)
 ## The number of trees in the forest, n_estimators 
 rf = RandomForestClassifier(n_estimators = 100, min_samples_split=1)
 print rf.fit(X,Y)
-y_pred_rf = rf.predict(x).tolist()
+y_pred_rf = rf.predict_proba(x).tolist()
 print "random forest"
-print "P; %f" % precision_score(y_true, y_pred_rf)
-print "R; %f" % recall_score(y_true, y_pred_rf)
+
+y_pred = []
+for item in y_pred_rf:
+	if item[0] >= 0.3:
+		y_pred.append(0)
+	else:
+		y_pred.append(1)
+
+print "P; %f" % precision_score(y_true, y_pred)
+print "R; %f" % recall_score(y_true, y_pred)
 
 
 ####Naive Bayes
@@ -55,7 +65,7 @@ print "R; %f" % recall_score(y_true, y_pred_nb)
 
 
 ####Support Vector Machines
-clf = svm.SVC(C=1000, class_weight =  {0: 10, 1: 1})
+clf = svm.SVC(C=1000, class_weight =  {0: 5, 1: 1})
 print clf.fit(X, Y)
 #my_list[-5:] # grab the last five elements
 y_pred_svm = clf.predict(x).tolist()
@@ -84,12 +94,33 @@ print
 # print "Precision:", precision.mean()
 # print "Recall:", recall.mean()
 #
-# clf = svm.SVC(C=1000, class_weight =  {0: 10, 1: 1})
+# clf = svm.SVC(C=1000, class_weight =  {0: 5, 1: 1})
 # precision = cross_validation.cross_val_score(clf, feature_matrix_test, classlabels_test, cv=5, scoring='precision')
 # recall = cross_validation.cross_val_score(clf, feature_matrix_test, classlabels_test, cv=5, scoring='recall')
 # print "test set svm"
 # print "Precision:", precision.mean()
 # print "Recall:", recall.mean()
+
+rf = RandomForestClassifier(n_estimators = 100, min_samples_split=1)
+
+fold_size = 2000
+test_data_1 = feature_matrix_test[:fold_size]
+train_data_1 = feature_matrix_test[fold_size:fold_size*2]
+test_class_1 = classlabels_test[:fold_size]
+train_class_1 = classlabels_test[fold_size:fold_size*2]
+
+rf.fit(train_data_1, train_class_1)
+y_pred_rf = rf.predict_proba(test_data_1).tolist()
+
+y_pred = []
+for item in y_pred_rf:
+	if item[0] >= 0.3:
+		y_pred.append(0)
+	else:
+		y_pred.append(1)
+
+print "P; %f" % precision_score(y_true, y_pred)
+print "R; %f" % recall_score(y_true, y_pred)
 
 
 
