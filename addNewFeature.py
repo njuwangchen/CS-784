@@ -315,31 +315,111 @@ for i in index_for_train:
     #
     # feature_matrix_train[k].append(manu_part2_in_des1)
 
-    if ("Assembled Product Length" in attribute_id1 and "Product Long Description" in attribute_id2):
-        length_set = tokenizers.delimiter(attribute_id1["Assembled Product Length"][0])
+    # if ("Assembled Product Length" in attribute_id1 and "Product Long Description" in attribute_id2):
+    #     length_set = tokenizers.delimiter(attribute_id1["Assembled Product Length"][0])
+    #     des_set = tokenizers.delimiter(attribute_id2["Product Long Description"][0])
+    #     count = 0
+    #     for length in length_set:
+    #         if length in des_set:
+    #             count = count+1
+    #     length1_in_des2 = count/len(length_set)
+    # else:
+    #     length1_in_des2 = 0
+    #
+    # feature_matrix_train[k].append(length1_in_des2)
+    #
+    # if ("Assembled Product Length" in attribute_id2 and "Product Long Description" in attribute_id1):
+    #     length_set = tokenizers.delimiter(attribute_id2["Assembled Product Length"][0])
+    #     des_set = tokenizers.delimiter(attribute_id1["Product Long Description"][0])
+    #     count = 0
+    #     for length in length_set:
+    #         if length in des_set:
+    #             count = count+1
+    #     length2_in_des1 = count/len(length_set)
+    # else:
+    #     length2_in_des1 = 0
+    #
+    # feature_matrix_train[k].append(length2_in_des1)
+
+    # if ("Assembled Product Width" in attribute_id1 and "Product Long Description" in attribute_id2):
+    #     width_set = tokenizers.delimiter(attribute_id1["Assembled Product Width"][0])
+    #     des_set = tokenizers.delimiter(attribute_id2["Product Long Description"][0])
+    #     count = 0
+    #     for width in width_set:
+    #         if width in des_set:
+    #             count = count+1
+    #     width1_in_des2 = count/len(width_set)
+    # else:
+    #     width1_in_des2 = 0
+    #
+    # feature_matrix_train[k].append(width1_in_des2)
+    #
+    # if ("Assembled Product Width" in attribute_id2 and "Product Long Description" in attribute_id1):
+    #     width_set = tokenizers.delimiter(attribute_id2["Assembled Product Width"][0])
+    #     des_set = tokenizers.delimiter(attribute_id1["Product Long Description"][0])
+    #     count = 0
+    #     for width in width_set:
+    #         if width in des_set:
+    #             count = count+1
+    #     width2_in_des1 = count/len(width_set)
+    # else:
+    #     width2_in_des1 = 0
+    #
+    # feature_matrix_train[k].append(width2_in_des1)
+    #
+    # if ("Assembled Product Height" in attribute_id1 and "Product Long Description" in attribute_id2):
+    #     height_set = tokenizers.delimiter(attribute_id1["Assembled Product Height"][0])
+    #     des_set = tokenizers.delimiter(attribute_id2["Product Long Description"][0])
+    #     count = 0
+    #     for height in height_set:
+    #         if height in des_set:
+    #             count = count+1
+    #     height1_in_des2 = count/len(height_set)
+    # else:
+    #     height1_in_des2 = 0
+    #
+    # feature_matrix_train[k].append(height1_in_des2)
+    #
+    # if ("Assembled Product Height" in attribute_id2 and "Product Long Description" in attribute_id1):
+    #     height_set = tokenizers.delimiter(attribute_id2["Assembled Product Height"][0])
+    #     des_set = tokenizers.delimiter(attribute_id1["Product Long Description"][0])
+    #     count = 0
+    #     for height in height_set:
+    #         if height in des_set:
+    #             count = count+1
+    #     height2_in_des1 = count/len(height_set)
+    # else:
+    #     height2_in_des1 = 0
+    #
+    # feature_matrix_train[k].append(height2_in_des1)
+
+    if ("Type" in attribute_id1 and "Product Long Description" in attribute_id2):
+        type_set = tokenizers.delimiter(attribute_id1["Type"][0])
         des_set = tokenizers.delimiter(attribute_id2["Product Long Description"][0])
         count = 0
-        for length in length_set:
-            if length in des_set:
+        for type in type_set:
+            if type in des_set:
                 count = count+1
-        length1_in_des2 = count/len(length_set)
+        type1_in_des2 = count/len(type_set)
     else:
-        length1_in_des2 = 0
+        type1_in_des2 = 0
 
-    feature_matrix_train[k].append(length1_in_des2)
+    feature_matrix_train[k].append(type1_in_des2)
 
-    if ("Assembled Product Length" in attribute_id2 and "Product Long Description" in attribute_id1):
-        length_set = tokenizers.delimiter(attribute_id2["Assembled Product Length"][0])
+    if ("Type" in attribute_id2 and "Product Long Description" in attribute_id1):
+        type_set = tokenizers.delimiter(attribute_id2["Type"][0])
         des_set = tokenizers.delimiter(attribute_id1["Product Long Description"][0])
         count = 0
-        for length in length_set:
-            if length in des_set:
+        for type in type_set:
+            if type in des_set:
                 count = count+1
-        length2_in_des1 = count/len(length_set)
+        type2_in_des1 = count/len(type_set)
     else:
-        length2_in_des1 = 0
+        type2_in_des1 = 0
 
-    feature_matrix_train[k].append(length2_in_des1)
+    feature_matrix_train[k].append(type2_in_des1)
+
+
 
     k = k+1
 
@@ -610,31 +690,109 @@ for i in index_for_test:
     #
     # feature_matrix_test[k].append(manu_part2_in_des1)
 
-    if ("Assembled Product Length" in attribute_id1 and "Product Long Description" in attribute_id2):
-        length_set = tokenizers.delimiter(attribute_id1["Assembled Product Length"][0])
+    # if ("Assembled Product Length" in attribute_id1 and "Product Long Description" in attribute_id2):
+    #     length_set = tokenizers.delimiter(attribute_id1["Assembled Product Length"][0])
+    #     des_set = tokenizers.delimiter(attribute_id2["Product Long Description"][0])
+    #     count = 0
+    #     for length in length_set:
+    #         if length in des_set:
+    #             count = count+1
+    #     length1_in_des2 = count/len(length_set)
+    # else:
+    #     length1_in_des2 = 0
+    #
+    # feature_matrix_test[k].append(length1_in_des2)
+    #
+    # if ("Assembled Product Length" in attribute_id2 and "Product Long Description" in attribute_id1):
+    #     length_set = tokenizers.delimiter(attribute_id2["Assembled Product Length"][0])
+    #     des_set = tokenizers.delimiter(attribute_id1["Product Long Description"][0])
+    #     count = 0
+    #     for length in length_set:
+    #         if length in des_set:
+    #             count = count+1
+    #     length2_in_des1 = count/len(length_set)
+    # else:
+    #     length2_in_des1 = 0
+    #
+    # feature_matrix_test[k].append(length2_in_des1)
+    #
+    # if ("Assembled Product Width" in attribute_id1 and "Product Long Description" in attribute_id2):
+    #     width_set = tokenizers.delimiter(attribute_id1["Assembled Product Width"][0])
+    #     des_set = tokenizers.delimiter(attribute_id2["Product Long Description"][0])
+    #     count = 0
+    #     for width in width_set:
+    #         if width in des_set:
+    #             count = count+1
+    #     width1_in_des2 = count/len(width_set)
+    # else:
+    #     width1_in_des2 = 0
+    #
+    # feature_matrix_test[k].append(width1_in_des2)
+    #
+    # if ("Assembled Product Width" in attribute_id2 and "Product Long Description" in attribute_id1):
+    #     width_set = tokenizers.delimiter(attribute_id2["Assembled Product Width"][0])
+    #     des_set = tokenizers.delimiter(attribute_id1["Product Long Description"][0])
+    #     count = 0
+    #     for width in width_set:
+    #         if width in des_set:
+    #             count = count+1
+    #     width2_in_des1 = count/len(width_set)
+    # else:
+    #     width2_in_des1 = 0
+    #
+    # feature_matrix_test[k].append(width2_in_des1)
+    #
+    # if ("Assembled Product Height" in attribute_id1 and "Product Long Description" in attribute_id2):
+    #     height_set = tokenizers.delimiter(attribute_id1["Assembled Product Height"][0])
+    #     des_set = tokenizers.delimiter(attribute_id2["Product Long Description"][0])
+    #     count = 0
+    #     for height in height_set:
+    #         if height in des_set:
+    #             count = count+1
+    #     height1_in_des2 = count/len(height_set)
+    # else:
+    #     height1_in_des2 = 0
+    #
+    # feature_matrix_test[k].append(height1_in_des2)
+    #
+    # if ("Assembled Product Height" in attribute_id2 and "Product Long Description" in attribute_id1):
+    #     height_set = tokenizers.delimiter(attribute_id2["Assembled Product Height"][0])
+    #     des_set = tokenizers.delimiter(attribute_id1["Product Long Description"][0])
+    #     count = 0
+    #     for height in height_set:
+    #         if height in des_set:
+    #             count = count+1
+    #     height2_in_des1 = count/len(height_set)
+    # else:
+    #     height2_in_des1 = 0
+    #
+    # feature_matrix_test[k].append(height2_in_des1)
+
+    if ("Type" in attribute_id1 and "Product Long Description" in attribute_id2):
+        type_set = tokenizers.delimiter(attribute_id1["Type"][0])
         des_set = tokenizers.delimiter(attribute_id2["Product Long Description"][0])
         count = 0
-        for length in length_set:
-            if length in des_set:
+        for type in type_set:
+            if type in des_set:
                 count = count+1
-        length1_in_des2 = count/len(length_set)
+        type1_in_des2 = count/len(type_set)
     else:
-        length1_in_des2 = 0
+        type1_in_des2 = 0
 
-    feature_matrix_test[k].append(length1_in_des2)
+    feature_matrix_test[k].append(type1_in_des2)
 
-    if ("Assembled Product Length" in attribute_id2 and "Product Long Description" in attribute_id1):
-        length_set = tokenizers.delimiter(attribute_id2["Assembled Product Length"][0])
+    if ("Type" in attribute_id2 and "Product Long Description" in attribute_id1):
+        type_set = tokenizers.delimiter(attribute_id2["Type"][0])
         des_set = tokenizers.delimiter(attribute_id1["Product Long Description"][0])
         count = 0
-        for length in length_set:
-            if length in des_set:
+        for type in type_set:
+            if type in des_set:
                 count = count+1
-        length2_in_des1 = count/len(length_set)
+        type2_in_des1 = count/len(type_set)
     else:
-        length2_in_des1 = 0
+        type2_in_des1 = 0
 
-    feature_matrix_test[k].append(length2_in_des1)
+    feature_matrix_test[k].append(type2_in_des1)
 
     k = k+1
 
