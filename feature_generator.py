@@ -561,7 +561,7 @@ def generate_label(filename):
 feature_matrix_train = generate_feature('elec_pairs_stage3.txt')
 classlabels_train = generate_label('elec_pairs_stage3.txt')
 
-feature_matrix_predict = generate_feature('elec_pairs_stage3_test1.txt')
+feature_matrix_predict = generate_feature('elec_pairs_stage3_test1_20K_anon.txt')
 
 with open('feature_matrix_train_20000.pickle', 'wb') as handle:
 	pickle.dump(feature_matrix_train, handle)
