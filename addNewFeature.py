@@ -445,31 +445,47 @@ for i in index_for_train:
     #
     # feature_matrix_train[k].append(op2_in_des1)
 
-    if ("Screen Size" in attribute_id1 and "Product Long Description" in attribute_id2):
-        ss_set = tokenizers.delimiter(attribute_id1["Screen Size"][0])
-        des_set = tokenizers.delimiter(attribute_id2["Product Long Description"][0])
+    # if ("Screen Size" in attribute_id1 and "Product Long Description" in attribute_id2):
+    #     ss_set = tokenizers.delimiter(attribute_id1["Screen Size"][0])
+    #     des_set = tokenizers.delimiter(attribute_id2["Product Long Description"][0])
+    #     count = 0
+    #     for ss in ss_set:
+    #         if ss in ss_set:
+    #             count = count+1
+    #     ss1_in_des2 = count/len(ss_set)
+    # else:
+    #     ss1_in_des2 = 0
+    #
+    # feature_matrix_train[k].append(ss1_in_des2)
+    #
+    # if ("Screen Size" in attribute_id2 and "Product Long Description" in attribute_id1):
+    #     ss_set = tokenizers.delimiter(attribute_id2["Screen Size"][0])
+    #     des_set = tokenizers.delimiter(attribute_id1["Product Long Description"][0])
+    #     count = 0
+    #     for ss in ss_set:
+    #         if ss in ss_set:
+    #             count = count+1
+    #     ss2_in_des1 = count/len(ss_set)
+    # else:
+    #     ss2_in_des1 = 0
+    #
+    # feature_matrix_train[k].append(ss2_in_des1)
+
+    if "Product Long Description" in attribute_id2:
+        all_set = []
+        for key in attribute_id1:
+            if key is not "Product Long Description":
+                all_set.append(tokenizers.delimiter(attribute_id1[key][0]))
+        des = attribute_id2["Product Long Description"][0]
         count = 0
-        for ss in ss_set:
-            if ss in ss_set:
-                count = count+1
-        ss1_in_des2 = count/len(ss_set)
+        for a in all_set:
+            if a in des:
+                count += 1
+        all1_in_des2 = count/len(all_set)
     else:
-        ss1_in_des2 = 0
+        all1_in_des2 = 0
 
-    feature_matrix_train[k].append(ss1_in_des2)
-
-    if ("Screen Size" in attribute_id2 and "Product Long Description" in attribute_id1):
-        ss_set = tokenizers.delimiter(attribute_id2["Screen Size"][0])
-        des_set = tokenizers.delimiter(attribute_id1["Product Long Description"][0])
-        count = 0
-        for ss in ss_set:
-            if ss in ss_set:
-                count = count+1
-        ss2_in_des1 = count/len(ss_set)
-    else:
-        ss2_in_des1 = 0
-
-    feature_matrix_train[k].append(ss2_in_des1)
+    feature_matrix_train[k].append(all1_in_des2)
 
     k = k+1
 
@@ -844,57 +860,73 @@ for i in index_for_test:
     #
     # feature_matrix_test[k].append(type2_in_des1)
 
-    if ("Operating System" in attribute_id1 and "Product Long Description" in attribute_id2):
-        op_set = tokenizers.delimiter(attribute_id1["Operating System"][0])
-        des_set = tokenizers.delimiter(attribute_id2["Product Long Description"][0])
+    # if ("Operating System" in attribute_id1 and "Product Long Description" in attribute_id2):
+    #     op_set = tokenizers.delimiter(attribute_id1["Operating System"][0])
+    #     des_set = tokenizers.delimiter(attribute_id2["Product Long Description"][0])
+    #     count = 0
+    #     for op in op_set:
+    #         if op in op_set:
+    #             count = count+1
+    #     op1_in_des2 = count/len(op_set)
+    # else:
+    #     op1_in_des2 = 0
+    #
+    # feature_matrix_test[k].append(op1_in_des2)
+    #
+    # if ("Operating System" in attribute_id2 and "Product Long Description" in attribute_id1):
+    #     op_set = tokenizers.delimiter(attribute_id2["Operating System"][0])
+    #     des_set = tokenizers.delimiter(attribute_id1["Product Long Description"][0])
+    #     count = 0
+    #     for op in op_set:
+    #         if op in op_set:
+    #             count = count+1
+    #     op2_in_des1 = count/len(op_set)
+    # else:
+    #     op2_in_des1 = 0
+    #
+    # feature_matrix_test[k].append(op2_in_des1)
+
+    # if ("Screen Size" in attribute_id1 and "Product Long Description" in attribute_id2):
+    #     ss_set = tokenizers.delimiter(attribute_id1["Screen Size"][0])
+    #     des_set = tokenizers.delimiter(attribute_id2["Product Long Description"][0])
+    #     count = 0
+    #     for ss in ss_set:
+    #         if ss in ss_set:
+    #             count = count+1
+    #     ss1_in_des2 = count/len(ss_set)
+    # else:
+    #     ss1_in_des2 = 0
+    #
+    # feature_matrix_test[k].append(ss1_in_des2)
+    #
+    # if ("Screen Size" in attribute_id2 and "Product Long Description" in attribute_id1):
+    #     ss_set = tokenizers.delimiter(attribute_id2["Screen Size"][0])
+    #     des_set = tokenizers.delimiter(attribute_id1["Product Long Description"][0])
+    #     count = 0
+    #     for ss in ss_set:
+    #         if ss in ss_set:
+    #             count = count+1
+    #     ss2_in_des1 = count/len(ss_set)
+    # else:
+    #     ss2_in_des1 = 0
+    #
+    # feature_matrix_test[k].append(ss2_in_des1)
+
+    if "Product Long Description" in attribute_id2:
+        all_set = []
+        for key in attribute_id1:
+            if key is not "Product Long Description":
+                all_set.append(tokenizers.delimiter(attribute_id1[key][0]))
+        des = attribute_id2["Product Long Description"][0]
         count = 0
-        for op in op_set:
-            if op in op_set:
-                count = count+1
-        op1_in_des2 = count/len(op_set)
+        for a in all_set:
+            if a in des:
+                count += 1
+        all1_in_des2 = count/len(all_set)
     else:
-        op1_in_des2 = 0
+        all1_in_des2 = 0
 
-    feature_matrix_test[k].append(op1_in_des2)
-
-    if ("Operating System" in attribute_id2 and "Product Long Description" in attribute_id1):
-        op_set = tokenizers.delimiter(attribute_id2["Operating System"][0])
-        des_set = tokenizers.delimiter(attribute_id1["Product Long Description"][0])
-        count = 0
-        for op in op_set:
-            if op in op_set:
-                count = count+1
-        op2_in_des1 = count/len(op_set)
-    else:
-        op2_in_des1 = 0
-
-    feature_matrix_test[k].append(op2_in_des1)
-
-    if ("Screen Size" in attribute_id1 and "Product Long Description" in attribute_id2):
-        ss_set = tokenizers.delimiter(attribute_id1["Screen Size"][0])
-        des_set = tokenizers.delimiter(attribute_id2["Product Long Description"][0])
-        count = 0
-        for ss in ss_set:
-            if ss in ss_set:
-                count = count+1
-        ss1_in_des2 = count/len(ss_set)
-    else:
-        ss1_in_des2 = 0
-
-    feature_matrix_test[k].append(ss1_in_des2)
-
-    if ("Screen Size" in attribute_id2 and "Product Long Description" in attribute_id1):
-        ss_set = tokenizers.delimiter(attribute_id2["Screen Size"][0])
-        des_set = tokenizers.delimiter(attribute_id1["Product Long Description"][0])
-        count = 0
-        for ss in ss_set:
-            if ss in ss_set:
-                count = count+1
-        ss2_in_des1 = count/len(ss_set)
-    else:
-        ss2_in_des1 = 0
-
-    feature_matrix_test[k].append(ss2_in_des1)
+    feature_matrix_test[k].append(all1_in_des2)
 
     k = k+1
 
