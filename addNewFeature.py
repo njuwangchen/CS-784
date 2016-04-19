@@ -211,83 +211,109 @@ for i in index_for_train:
     # feature_matrix_train[k].append(tfidf_short_description)
     #
 
-    if ("Product Name" in attribute_id1 and "Product Short Description" in attribute_id2):
-        name_set = tokenizers.delimiter(attribute_id1["Product Name"][0])
-        des = attribute_id2["Product Short Description"][0]
+    # if ("Product Name" in attribute_id1 and "Product Short Description" in attribute_id2):
+    #     name_set = tokenizers.delimiter(attribute_id1["Product Name"][0])
+    #     des = attribute_id2["Product Short Description"][0]
+    #     count = 0
+    #     for name in name_set:
+    #         if name in des:
+    #             count = count+1
+    #     name1_in_des2 = count/len(name_set)
+    # else:
+    #     name1_in_des2 = 0
+    #
+    # feature_matrix_train[k].append(name1_in_des2)
+    #
+    # if ("Product Short Description" in attribute_id1 and "Product Name" in attribute_id2):
+    #     name_set = tokenizers.delimiter(attribute_id2["Product Name"][0])
+    #     des = attribute_id1["Product Short Description"][0]
+    #     count = 0
+    #     for name in name_set:
+    #         if name in des:
+    #             count = count+1
+    #     name2_in_des1 = count/len(name_set)
+    # else:
+    #     name2_in_des1 = 0
+    #
+    # feature_matrix_train[k].append(name2_in_des1)
+    #
+    # if ("Brand" in attribute_id1 and "Product Short Description" in attribute_id2):
+    #     brand_set = tokenizers.delimiter(attribute_id1["Brand"][0])
+    #     des = attribute_id2["Product Short Description"][0]
+    #     count = 0
+    #     for brand in brand_set:
+    #         if brand in des:
+    #             count = count+1
+    #     brand1_in_des2 = count/len(brand_set)
+    # else:
+    #     brand1_in_des2 = 0
+    #
+    # feature_matrix_train[k].append(brand1_in_des2)
+    #
+    # if ("Brand" in attribute_id2 and "Product Short Description" in attribute_id1):
+    #     brand_set = tokenizers.delimiter(attribute_id2["Brand"][0])
+    #     des = attribute_id1["Product Short Description"][0]
+    #     count = 0
+    #     for brand in brand_set:
+    #         if brand in des:
+    #             count = count+1
+    #     brand2_in_des1 = count/len(brand_set)
+    # else:
+    #     brand2_in_des1 = 0
+    #
+    # feature_matrix_train[k].append(brand2_in_des1)
+    #
+    # if ("Manufacturer" in attribute_id1 and "Product Short Description" in attribute_id2):
+    #     manufacturer_set = tokenizers.delimiter(attribute_id1["Manufacturer"][0])
+    #     des = attribute_id2["Product Short Description"][0]
+    #     count = 0
+    #     for manufacturer in manufacturer_set:
+    #         if manufacturer in des:
+    #             count = count+1
+    #     manufacturer1_in_des2 = count/len(manufacturer_set)
+    # else:
+    #     manufacturer1_in_des2 = 0
+    #
+    # feature_matrix_train[k].append(manufacturer1_in_des2)
+    #
+    # if ("Manufacturer" in attribute_id2 and "Product Short Description" in attribute_id1):
+    #     manufacturer_set = tokenizers.delimiter(attribute_id2["Manufacturer"][0])
+    #     des = attribute_id1["Product Short Description"][0]
+    #     count = 0
+    #     for manufacturer in manufacturer_set:
+    #         if manufacturer in des:
+    #             count = count+1
+    #     manufacturer2_in_des1 = count/len(manufacturer_set)
+    # else:
+    #     manufacturer2_in_des1 = 0
+    #
+    # feature_matrix_train[k].append(manufacturer2_in_des1)
+
+    if ("Manufacturer Part Number" in attribute_id1 and "Product Long Description" in attribute_id2):
+        manu_part_number_set = tokenizers.delimiter(attribute_id1["Manufacturer Part Number"][0])
+        des_set = tokenizers.delimiter(attribute_id2["Product Long Description"][0])
         count = 0
-        for name in name_set:
-            if name in des:
+        for manu_part in manu_part_number_set:
+            if manu_part in des_set:
                 count = count+1
-        name1_in_des2 = count/len(name_set)
+        manu_part1_in_des2 = count/len(manu_part_number_set)
     else:
-        name1_in_des2 = 0
+        manu_part1_in_des2 = 0
 
-    feature_matrix_train[k].append(name1_in_des2)
+    feature_matrix_train[k].append(manu_part1_in_des2)
 
-    if ("Product Short Description" in attribute_id1 and "Product Name" in attribute_id2):
-        name_set = tokenizers.delimiter(attribute_id2["Product Name"][0])
-        des = attribute_id1["Product Short Description"][0]
+    if ("Manufacturer Part Number" in attribute_id2 and "Product Long Description" in attribute_id1):
+        manu_part_number_set = tokenizers.delimiter(attribute_id2["Manufacturer Part Number"][0])
+        des_set = tokenizers.delimiter(attribute_id1["Product Long Description"][0])
         count = 0
-        for name in name_set:
-            if name in des:
+        for manu_part in manu_part_number_set:
+            if manu_part in des_set:
                 count = count+1
-        name2_in_des1 = count/len(name_set)
+        manu_part2_in_des1 = count/len(manu_part_number_set)
     else:
-        name2_in_des1 = 0
+        manu_part2_in_des1 = 0
 
-    feature_matrix_train[k].append(name2_in_des1)
-
-    if ("Brand" in attribute_id1 and "Product Short Description" in attribute_id2):
-        brand_set = tokenizers.delimiter(attribute_id1["Brand"][0])
-        des = attribute_id2["Product Short Description"][0]
-        count = 0
-        for brand in brand_set:
-            if brand in des:
-                count = count+1
-        brand1_in_des2 = count/len(brand_set)
-    else:
-        brand1_in_des2 = 0
-
-    feature_matrix_train[k].append(brand1_in_des2)
-
-    if ("Brand" in attribute_id2 and "Product Short Description" in attribute_id1):
-        brand_set = tokenizers.delimiter(attribute_id2["Brand"][0])
-        des = attribute_id1["Product Short Description"][0]
-        count = 0
-        for brand in brand_set:
-            if brand in des:
-                count = count+1
-        brand2_in_des1 = count/len(brand_set)
-    else:
-        brand2_in_des1 = 0
-
-    feature_matrix_train[k].append(brand2_in_des1)
-
-    if ("Manufacturer" in attribute_id1 and "Product Short Description" in attribute_id2):
-        manufacturer_set = tokenizers.delimiter(attribute_id1["Manufacturer"][0])
-        des = attribute_id2["Product Short Description"][0]
-        count = 0
-        for manufacturer in manufacturer_set:
-            if manufacturer in des:
-                count = count+1
-        manufacturer1_in_des2 = count/len(manufacturer_set)
-    else:
-        manufacturer1_in_des2 = 0
-
-    feature_matrix_train[k].append(manufacturer1_in_des2)
-
-    if ("Manufacturer" in attribute_id2 and "Product Short Description" in attribute_id1):
-        manufacturer_set = tokenizers.delimiter(attribute_id2["Manufacturer"][0])
-        des = attribute_id1["Product Short Description"][0]
-        count = 0
-        for manufacturer in manufacturer_set:
-            if manufacturer in des:
-                count = count+1
-        manufacturer2_in_des1 = count/len(manufacturer_set)
-    else:
-        manufacturer2_in_des1 = 0
-
-    feature_matrix_train[k].append(manufacturer2_in_des1)
+    feature_matrix_train[k].append(manu_part2_in_des1)
 
     k = k+1
 
@@ -454,83 +480,109 @@ for i in index_for_test:
     #
     # feature_matrix_test[k].append(tfidf_short_description)
 
-    if ("Product Name" in attribute_id1 and "Product Short Description" in attribute_id2):
-        name_set = tokenizers.delimiter(attribute_id1["Product Name"][0])
-        des = attribute_id2["Product Short Description"][0]
+    # if ("Product Name" in attribute_id1 and "Product Short Description" in attribute_id2):
+    #     name_set = tokenizers.delimiter(attribute_id1["Product Name"][0])
+    #     des = attribute_id2["Product Short Description"][0]
+    #     count = 0
+    #     for name in name_set:
+    #         if name in des:
+    #             count = count+1
+    #     name1_in_des2 = count/len(name_set)
+    # else:
+    #     name1_in_des2 = 0
+    #
+    # feature_matrix_test[k].append(name1_in_des2)
+    #
+    # if ("Product Short Description" in attribute_id1 and "Product Name" in attribute_id2):
+    #     name_set = tokenizers.delimiter(attribute_id2["Product Name"][0])
+    #     des = attribute_id1["Product Short Description"][0]
+    #     count = 0
+    #     for name in name_set:
+    #         if name in des:
+    #             count = count+1
+    #     name2_in_des1 = count/len(name_set)
+    # else:
+    #     name2_in_des1 = 0
+    #
+    # feature_matrix_test[k].append(name2_in_des1)
+    #
+    # if ("Brand" in attribute_id1 and "Product Short Description" in attribute_id2):
+    #     brand_set = tokenizers.delimiter(attribute_id1["Brand"][0])
+    #     des = attribute_id2["Product Short Description"][0]
+    #     count = 0
+    #     for brand in brand_set:
+    #         if brand in des:
+    #             count = count+1
+    #     brand1_in_des2 = count/len(brand_set)
+    # else:
+    #     brand1_in_des2 = 0
+    #
+    # feature_matrix_test[k].append(brand1_in_des2)
+    #
+    # if ("Brand" in attribute_id2 and "Product Short Description" in attribute_id1):
+    #     brand_set = tokenizers.delimiter(attribute_id2["Brand"][0])
+    #     des = attribute_id1["Product Short Description"][0]
+    #     count = 0
+    #     for brand in brand_set:
+    #         if brand in des:
+    #             count = count+1
+    #     brand2_in_des1 = count/len(brand_set)
+    # else:
+    #     brand2_in_des1 = 0
+    #
+    # feature_matrix_test[k].append(brand2_in_des1)
+    #
+    # if ("Manufacturer" in attribute_id1 and "Product Short Description" in attribute_id2):
+    #     manufacturer_set = tokenizers.delimiter(attribute_id1["Manufacturer"][0])
+    #     des = attribute_id2["Product Short Description"][0]
+    #     count = 0
+    #     for manufacturer in manufacturer_set:
+    #         if manufacturer in des:
+    #             count = count+1
+    #     manufacturer1_in_des2 = count/len(manufacturer_set)
+    # else:
+    #     manufacturer1_in_des2 = 0
+    #
+    # feature_matrix_test[k].append(manufacturer1_in_des2)
+    #
+    # if ("Manufacturer" in attribute_id2 and "Product Short Description" in attribute_id1):
+    #     manufacturer_set = tokenizers.delimiter(attribute_id2["Manufacturer"][0])
+    #     des = attribute_id1["Product Short Description"][0]
+    #     count = 0
+    #     for manufacturer in manufacturer_set:
+    #         if manufacturer in des:
+    #             count = count+1
+    #     manufacturer2_in_des1 = count/len(manufacturer_set)
+    # else:
+    #     manufacturer2_in_des1 = 0
+    #
+    # feature_matrix_test[k].append(manufacturer2_in_des1)
+
+    if ("Manufacturer Part Number" in attribute_id1 and "Product Long Description" in attribute_id2):
+        manu_part_number_set = tokenizers.delimiter(attribute_id1["Manufacturer Part Number"][0])
+        des_set = tokenizers.delimiter(attribute_id2["Product Long Description"][0])
         count = 0
-        for name in name_set:
-            if name in des:
+        for manu_part in manu_part_number_set:
+            if manu_part in des_set:
                 count = count+1
-        name1_in_des2 = count/len(name_set)
+        manu_part1_in_des2 = count/len(manu_part_number_set)
     else:
-        name1_in_des2 = 0
+        manu_part1_in_des2 = 0
 
-    feature_matrix_test[k].append(name1_in_des2)
+    feature_matrix_test[k].append(manu_part1_in_des2)
 
-    if ("Product Short Description" in attribute_id1 and "Product Name" in attribute_id2):
-        name_set = tokenizers.delimiter(attribute_id2["Product Name"][0])
-        des = attribute_id1["Product Short Description"][0]
+    if ("Manufacturer Part Number" in attribute_id2 and "Product Long Description" in attribute_id1):
+        manu_part_number_set = tokenizers.delimiter(attribute_id2["Manufacturer Part Number"][0])
+        des_set = tokenizers.delimiter(attribute_id1["Product Long Description"][0])
         count = 0
-        for name in name_set:
-            if name in des:
+        for manu_part in manu_part_number_set:
+            if manu_part in des_set:
                 count = count+1
-        name2_in_des1 = count/len(name_set)
+        manu_part2_in_des1 = count/len(manu_part_number_set)
     else:
-        name2_in_des1 = 0
+        manu_part2_in_des1 = 0
 
-    feature_matrix_test[k].append(name2_in_des1)
-
-    if ("Brand" in attribute_id1 and "Product Short Description" in attribute_id2):
-        brand_set = tokenizers.delimiter(attribute_id1["Brand"][0])
-        des = attribute_id2["Product Short Description"][0]
-        count = 0
-        for brand in brand_set:
-            if brand in des:
-                count = count+1
-        brand1_in_des2 = count/len(brand_set)
-    else:
-        brand1_in_des2 = 0
-
-    feature_matrix_test[k].append(brand1_in_des2)
-
-    if ("Brand" in attribute_id2 and "Product Short Description" in attribute_id1):
-        brand_set = tokenizers.delimiter(attribute_id2["Brand"][0])
-        des = attribute_id1["Product Short Description"][0]
-        count = 0
-        for brand in brand_set:
-            if brand in des:
-                count = count+1
-        brand2_in_des1 = count/len(brand_set)
-    else:
-        brand2_in_des1 = 0
-
-    feature_matrix_test[k].append(brand2_in_des1)
-
-    if ("Manufacturer" in attribute_id1 and "Product Short Description" in attribute_id2):
-        manufacturer_set = tokenizers.delimiter(attribute_id1["Manufacturer"][0])
-        des = attribute_id2["Product Short Description"][0]
-        count = 0
-        for manufacturer in manufacturer_set:
-            if manufacturer in des:
-                count = count+1
-        manufacturer1_in_des2 = count/len(manufacturer_set)
-    else:
-        manufacturer1_in_des2 = 0
-
-    feature_matrix_test[k].append(manufacturer1_in_des2)
-
-    if ("Manufacturer" in attribute_id2 and "Product Short Description" in attribute_id1):
-        manufacturer_set = tokenizers.delimiter(attribute_id2["Manufacturer"][0])
-        des = attribute_id1["Product Short Description"][0]
-        count = 0
-        for manufacturer in manufacturer_set:
-            if manufacturer in des:
-                count = count+1
-        manufacturer2_in_des1 = count/len(manufacturer_set)
-    else:
-        manufacturer2_in_des1 = 0
-
-    feature_matrix_test[k].append(manufacturer2_in_des1)
+    feature_matrix_test[k].append(manu_part2_in_des1)
 
     k = k+1
 
