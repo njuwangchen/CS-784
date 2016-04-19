@@ -289,31 +289,57 @@ for i in index_for_train:
     #
     # feature_matrix_train[k].append(manufacturer2_in_des1)
 
-    if ("Manufacturer Part Number" in attribute_id1 and "Product Long Description" in attribute_id2):
-        manu_part_number_set = tokenizers.delimiter(attribute_id1["Manufacturer Part Number"][0])
+    # if ("Manufacturer Part Number" in attribute_id1 and "Product Long Description" in attribute_id2):
+    #     manu_part_number_set = tokenizers.delimiter(attribute_id1["Manufacturer Part Number"][0])
+    #     des_set = tokenizers.delimiter(attribute_id2["Product Long Description"][0])
+    #     count = 0
+    #     for manu_part in manu_part_number_set:
+    #         if manu_part in des_set:
+    #             count = count+1
+    #     manu_part1_in_des2 = count/len(manu_part_number_set)
+    # else:
+    #     manu_part1_in_des2 = 0
+    #
+    # feature_matrix_train[k].append(manu_part1_in_des2)
+    #
+    # if ("Manufacturer Part Number" in attribute_id2 and "Product Long Description" in attribute_id1):
+    #     manu_part_number_set = tokenizers.delimiter(attribute_id2["Manufacturer Part Number"][0])
+    #     des_set = tokenizers.delimiter(attribute_id1["Product Long Description"][0])
+    #     count = 0
+    #     for manu_part in manu_part_number_set:
+    #         if manu_part in des_set:
+    #             count = count+1
+    #     manu_part2_in_des1 = count/len(manu_part_number_set)
+    # else:
+    #     manu_part2_in_des1 = 0
+    #
+    # feature_matrix_train[k].append(manu_part2_in_des1)
+
+    if ("Assembled Product Length" in attribute_id1 and "Product Long Description" in attribute_id2):
+        length_set = tokenizers.delimiter(attribute_id1["Assembled Product Length"][0])
         des_set = tokenizers.delimiter(attribute_id2["Product Long Description"][0])
         count = 0
-        for manu_part in manu_part_number_set:
-            if manu_part in des_set:
+        for length in length_set:
+            if length in des_set:
                 count = count+1
-        manu_part1_in_des2 = count/len(manu_part_number_set)
+        length1_in_des2 = count/len(length_set)
     else:
-        manu_part1_in_des2 = 0
+        length1_in_des2 = 0
 
-    feature_matrix_train[k].append(manu_part1_in_des2)
+    feature_matrix_train[k].append(length1_in_des2)
 
-    if ("Manufacturer Part Number" in attribute_id2 and "Product Long Description" in attribute_id1):
-        manu_part_number_set = tokenizers.delimiter(attribute_id2["Manufacturer Part Number"][0])
+    if ("Assembled Product Length" in attribute_id2 and "Product Long Description" in attribute_id1):
+        length_set = tokenizers.delimiter(attribute_id2["Assembled Product Length"][0])
         des_set = tokenizers.delimiter(attribute_id1["Product Long Description"][0])
         count = 0
-        for manu_part in manu_part_number_set:
-            if manu_part in des_set:
+        for length in length_set:
+            if length in des_set:
                 count = count+1
-        manu_part2_in_des1 = count/len(manu_part_number_set)
+        length2_in_des1 = count/len(length_set)
     else:
-        manu_part2_in_des1 = 0
+        length2_in_des1 = 0
 
-    feature_matrix_train[k].append(manu_part2_in_des1)
+    feature_matrix_train[k].append(length2_in_des1)
 
     k = k+1
 
@@ -558,31 +584,57 @@ for i in index_for_test:
     #
     # feature_matrix_test[k].append(manufacturer2_in_des1)
 
-    if ("Manufacturer Part Number" in attribute_id1 and "Product Long Description" in attribute_id2):
-        manu_part_number_set = tokenizers.delimiter(attribute_id1["Manufacturer Part Number"][0])
+    # if ("Manufacturer Part Number" in attribute_id1 and "Product Long Description" in attribute_id2):
+    #     manu_part_number_set = tokenizers.delimiter(attribute_id1["Manufacturer Part Number"][0])
+    #     des_set = tokenizers.delimiter(attribute_id2["Product Long Description"][0])
+    #     count = 0
+    #     for manu_part in manu_part_number_set:
+    #         if manu_part in des_set:
+    #             count = count+1
+    #     manu_part1_in_des2 = count/len(manu_part_number_set)
+    # else:
+    #     manu_part1_in_des2 = 0
+    #
+    # feature_matrix_test[k].append(manu_part1_in_des2)
+    #
+    # if ("Manufacturer Part Number" in attribute_id2 and "Product Long Description" in attribute_id1):
+    #     manu_part_number_set = tokenizers.delimiter(attribute_id2["Manufacturer Part Number"][0])
+    #     des_set = tokenizers.delimiter(attribute_id1["Product Long Description"][0])
+    #     count = 0
+    #     for manu_part in manu_part_number_set:
+    #         if manu_part in des_set:
+    #             count = count+1
+    #     manu_part2_in_des1 = count/len(manu_part_number_set)
+    # else:
+    #     manu_part2_in_des1 = 0
+    #
+    # feature_matrix_test[k].append(manu_part2_in_des1)
+
+    if ("Assembled Product Length" in attribute_id1 and "Product Long Description" in attribute_id2):
+        length_set = tokenizers.delimiter(attribute_id1["Assembled Product Length"][0])
         des_set = tokenizers.delimiter(attribute_id2["Product Long Description"][0])
         count = 0
-        for manu_part in manu_part_number_set:
-            if manu_part in des_set:
+        for length in length_set:
+            if length in des_set:
                 count = count+1
-        manu_part1_in_des2 = count/len(manu_part_number_set)
+        length1_in_des2 = count/len(length_set)
     else:
-        manu_part1_in_des2 = 0
+        length1_in_des2 = 0
 
-    feature_matrix_test[k].append(manu_part1_in_des2)
+    feature_matrix_test[k].append(length1_in_des2)
 
-    if ("Manufacturer Part Number" in attribute_id2 and "Product Long Description" in attribute_id1):
-        manu_part_number_set = tokenizers.delimiter(attribute_id2["Manufacturer Part Number"][0])
+    if ("Assembled Product Length" in attribute_id2 and "Product Long Description" in attribute_id1):
+        length_set = tokenizers.delimiter(attribute_id2["Assembled Product Length"][0])
         des_set = tokenizers.delimiter(attribute_id1["Product Long Description"][0])
         count = 0
-        for manu_part in manu_part_number_set:
-            if manu_part in des_set:
+        for length in length_set:
+            if length in des_set:
                 count = count+1
-        manu_part2_in_des1 = count/len(manu_part_number_set)
+        length2_in_des1 = count/len(length_set)
     else:
-        manu_part2_in_des1 = 0
+        length2_in_des1 = 0
 
-    feature_matrix_test[k].append(manu_part2_in_des1)
+    feature_matrix_test[k].append(length2_in_des1)
 
     k = k+1
 
