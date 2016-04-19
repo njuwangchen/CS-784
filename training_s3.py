@@ -42,7 +42,7 @@ print "random forest"
 
 y_pred = []
 for item in y_pred_rf:
-	if item[0] >= 0.3:
+	if item[0] >= 0.38:
 		y_pred.append(0)
 	else:
 		y_pred.append(1)

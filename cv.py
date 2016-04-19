@@ -15,7 +15,7 @@ with open('feature_matrix_test.pickle', 'rb') as handle:
 
 rf = RandomForestClassifier(n_estimators = 100, min_samples_split=1)
 
-threshold = 0.35
+threshold = 0.38
 
 fold_size = 2000
 
